@@ -1,6 +1,11 @@
-// Quiz App JavaScript - Save as script.js
+/* ============================================
+   QUIZ APP - COMPLETE JAVASCRIPT
+   Save as: script.js
+   ============================================ */
 
-// Quiz Data - Extensive question bank for each category
+// ============================================
+// 1. QUIZ DATA - QUESTION BANK
+// ============================================
 const quizData = {
     science: [
         {
@@ -186,7 +191,7 @@ const quizData = {
         },
         {
             question: "What does WWW stand for in a website URL?",
-            options: ["World Wide Web", "World Web Wide", "Web World Wide", "Wide World Web"],
+            options: ["World Wide Web", "Web World Wide", "Wide World Web", "World Web Wide"],
             correct: 0
         },
         {
@@ -212,7 +217,72 @@ const quizData = {
     ]
 };
 
-// Application State
+// ============================================
+// 2. USER DATA MANAGEMENT (LocalStorage)
+// ============================================
+
+/**
+ * Get user data from localStorage or return default values
+ */
+const getUserData = () => {
+    const defaultData = {
+        name: "Guest User",
+        email: "guest@quizapp.com",
+        username: "guest_user",
+        bio: "",
+        points: 230,
+        rank: 1250,
+        totalQuizzes: 0,
+        averageScore: 0,
+        currentStreak: 0,
+        totalBadges: 0,
+        bestScore: 0,
+        preferences: {
+            soundEffects: true,
+            notifications: true,
+            darkMode: false
+        },
+        quizHistory: [],
+        categoryStats: {
+            science: { attempted: 0, correct: 0, total: 0 },
+            art: { attempted: 0, correct: 0, total: 0 },
+            general: { attempted: 0, correct: 0, total: 0 },
+            technology: { attempted: 0, correct: 0, total: 0 }
+        }
+    };
+    
+    try {
+        const stored = localStorage.getItem('quizAppUser');
+        if (stored) {
+            const parsedData = JSON.parse(stored);
+            // Merge with default data to ensure all properties exist
+            return { ...defaultData, ...parsedData };
+        }
+        return defaultData;
+    } catch (error) {
+        console.error('Error loading user data:', error);
+        return defaultData;
+    }
+};
+
+/**
+ * Save user data to localStorage
+ */
+const saveUserData = (data) => {
+    try {
+        localStorage.setItem('quizAppUser', JSON.stringify(data));
+        console.log('User data saved successfully');
+    } catch (error) {
+        console.error('Error saving user data:', error);
+    }
+};
+
+// Initialize user data
+let userData = getUserData();
+
+// ============================================
+// 3. APPLICATION STATE VARIABLES
+// ============================================
 let currentCategory = '';
 let currentQuestionIndex = 0;
 let selectedAnswer = null;
@@ -220,13 +290,19 @@ let score = 0;
 let totalQuestions = 0;
 let answeredQuestions = 0;
 let timer = null;
-let timeRemaining = 180; // 3 minutes in seconds
+let timeRemaining = 180;
 let isAnswerSubmitted = false;
+let quizStartTime = null;
 
-// DOM Elements
+// ============================================
+// 4. DOM ELEMENTS
+// ============================================
 const homeScreen = document.getElementById('homeScreen');
 const quizScreen = document.getElementById('quizScreen');
 const resultsScreen = document.getElementById('resultsScreen');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+const profileModal = document.getElementById('profileModal');
 const categoryCards = document.querySelectorAll('.category-card');
 const closeButtons = document.querySelectorAll('.close-btn');
 const submitBtn = document.getElementById('submitBtn');
@@ -239,15 +315,79 @@ const scorePercentageEl = document.getElementById('scorePercentage');
 const totalQuestionsEl = document.getElementById('totalQuestions');
 const correctAnswersEl = document.getElementById('correctAnswers');
 
-// Initialize App
+// ============================================
+// 5. INITIALIZATION
+// ============================================
+
+/**
+ * Initialize the application
+ */
 function init() {
+    console.log('%c Quiz App Initializing... ', 'background: #ff9a56; color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
+    
     setupEventListeners();
-    updateStats();
+    updateHomeStats();
+    updateSidebarUserInfo();
+    updateProfileData();
+    
+    console.log('%c Quiz App Loaded Successfully! ', 'background: #4caf50; color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
+    console.log('💡 Tip: You can use A, B, C, D keys to select answers and Enter to submit!');
+    console.log('💡 Press Escape to close modals and sidebar!');
 }
 
-// Setup Event Listeners
+// ============================================
+// 6. EVENT LISTENERS SETUP
+// ============================================
+
+/**
+ * Setup all event listeners
+ */
 function setupEventListeners() {
-    // Category selection
+    // === SIDEBAR CONTROLS ===
+    const menuBtn = document.getElementById('menuBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebar');
+    
+    if (menuBtn) menuBtn.addEventListener('click', openSidebar);
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeSidebar);
+    if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+    
+    // === PROFILE CONTROLS ===
+    const profileBtn = document.getElementById('profileBtn');
+    const closeProfileBtn = document.getElementById('closeProfile');
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+    const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+    
+    if (profileBtn) profileBtn.addEventListener('click', openProfile);
+    if (closeProfileBtn) closeProfileBtn.addEventListener('click', closeProfile);
+    if (saveProfileBtn) saveProfileBtn.addEventListener('click', saveProfile);
+    if (cancelProfileBtn) cancelProfileBtn.addEventListener('click', closeProfile);
+    if (changeAvatarBtn) changeAvatarBtn.addEventListener('click', handleAvatarChange);
+    
+    // === SIDEBAR NAVIGATION ===
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleNavigation(item);
+        });
+    });
+    
+    // === OTHER SIDEBAR BUTTONS ===
+    const logoutBtn = document.getElementById('logoutBtn');
+    const leaderboardBtn = document.getElementById('leaderboardBtn');
+    const achievementsBtn = document.getElementById('achievementsBtn');
+    const historyBtn = document.getElementById('historyBtn');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const helpBtn = document.getElementById('helpBtn');
+    
+    if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+    if (leaderboardBtn) leaderboardBtn.addEventListener('click', () => showComingSoon('Leaderboard'));
+    if (achievementsBtn) achievementsBtn.addEventListener('click', () => showComingSoon('Achievements'));
+    if (historyBtn) historyBtn.addEventListener('click', () => showComingSoon('Quiz History'));
+    if (settingsBtn) settingsBtn.addEventListener('click', () => showComingSoon('Settings'));
+    if (helpBtn) helpBtn.addEventListener('click', () => showComingSoon('Help & Support'));
+    
+    // === CATEGORY SELECTION ===
     categoryCards.forEach(card => {
         card.addEventListener('click', () => {
             const category = card.getAttribute('data-category');
@@ -255,59 +395,259 @@ function setupEventListeners() {
         });
     });
 
-    // Close buttons
+    // === QUIZ CONTROLS ===
     closeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
-                stopQuiz();
-                showScreen('home');
-            }
-        });
+        btn.addEventListener('click', handleCloseQuiz);
     });
 
-    // Submit button
-    submitBtn.addEventListener('click', handleSubmit);
+    if (submitBtn) submitBtn.addEventListener('click', handleSubmit);
 
-    // Share buttons
+    // === SHARE BUTTONS ===
     document.querySelectorAll('.share-icon').forEach(icon => {
         icon.addEventListener('click', handleShare);
     });
 
-    // Menu and profile buttons (placeholder functionality)
-    document.querySelector('.menu-btn')?.addEventListener('click', () => {
-        alert('Menu functionality - Add your custom menu here!');
-    });
-
-    document.querySelector('.profile-btn')?.addEventListener('click', () => {
-        alert('Profile functionality - Add your profile page here!');
-    });
-
-    document.querySelector('.upgrade-btn')?.addEventListener('click', () => {
-        alert('Upgrade to Premium - Add your payment integration here!');
-    });
+    // === UPGRADE BUTTON ===
+    const upgradeBtn = document.querySelector('.upgrade-btn');
+    if (upgradeBtn) upgradeBtn.addEventListener('click', handleUpgrade);
+    
+    // === PREFERENCE CHECKBOXES ===
+    const soundEffectsCheckbox = document.getElementById('soundEffects');
+    const notificationsCheckbox = document.getElementById('notifications');
+    const darkModeCheckbox = document.getElementById('darkMode');
+    
+    if (soundEffectsCheckbox) {
+        soundEffectsCheckbox.addEventListener('change', (e) => {
+            userData.preferences.soundEffects = e.target.checked;
+        });
+    }
+    
+    if (notificationsCheckbox) {
+        notificationsCheckbox.addEventListener('change', (e) => {
+            userData.preferences.notifications = e.target.checked;
+        });
+    }
+    
+    if (darkModeCheckbox) {
+        darkModeCheckbox.addEventListener('change', (e) => {
+            userData.preferences.darkMode = e.target.checked;
+            toggleDarkMode(e.target.checked);
+        });
+    }
 }
 
-// Screen Management
+// ============================================
+// 7. SIDEBAR FUNCTIONS
+// ============================================
+
+/**
+ * Open the sidebar menu
+ */
+function openSidebar() {
+    if (sidebar) sidebar.classList.add('active');
+    if (sidebarOverlay) sidebarOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Close the sidebar menu
+ */
+function closeSidebar() {
+    if (sidebar) sidebar.classList.remove('active');
+    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+/**
+ * Update sidebar user information
+ */
+function updateSidebarUserInfo() {
+    const sidebarUserName = document.getElementById('sidebarUserName');
+    const sidebarUserEmail = document.getElementById('sidebarUserEmail');
+    
+    if (sidebarUserName) sidebarUserName.textContent = userData.name;
+    if (sidebarUserEmail) sidebarUserEmail.textContent = userData.email;
+}
+
+/**
+ * Handle navigation item clicks
+ */
+function handleNavigation(navItem) {
+    const screen = navItem.getAttribute('data-screen');
+    
+    // Update active state
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    navItem.classList.add('active');
+    
+    closeSidebar();
+    
+    if (screen === 'home') {
+        showScreen('home');
+    } else if (screen === 'profile') {
+        openProfile();
+    }
+}
+
+// ============================================
+// 8. PROFILE FUNCTIONS
+// ============================================
+
+/**
+ * Open the profile modal
+ */
+function openProfile() {
+    if (profileModal) {
+        profileModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        updateProfileData();
+    }
+}
+
+/**
+ * Close the profile modal
+ */
+function closeProfile() {
+    if (profileModal) {
+        profileModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+/**
+ * Update profile data in the modal
+ */
+function updateProfileData() {
+    const profileName = document.getElementById('profileName');
+    const profileEmail = document.getElementById('profileEmail');
+    const profileUsername = document.getElementById('profileUsername');
+    const profileBio = document.getElementById('profileBio');
+    const totalQuizzesEl = document.getElementById('totalQuizzes');
+    const averageScoreEl = document.getElementById('averageScore');
+    const currentStreakEl = document.getElementById('currentStreak');
+    const totalBadgesEl = document.getElementById('totalBadges');
+    const soundEffectsCheckbox = document.getElementById('soundEffects');
+    const notificationsCheckbox = document.getElementById('notifications');
+    const darkModeCheckbox = document.getElementById('darkMode');
+    
+    if (profileName) profileName.value = userData.name;
+    if (profileEmail) profileEmail.value = userData.email;
+    if (profileUsername) profileUsername.value = userData.username;
+    if (profileBio) profileBio.value = userData.bio;
+    
+    if (totalQuizzesEl) totalQuizzesEl.textContent = userData.totalQuizzes;
+    if (averageScoreEl) averageScoreEl.textContent = userData.averageScore + '%';
+    if (currentStreakEl) currentStreakEl.textContent = userData.currentStreak;
+    if (totalBadgesEl) totalBadgesEl.textContent = userData.totalBadges;
+    
+    if (soundEffectsCheckbox) soundEffectsCheckbox.checked = userData.preferences.soundEffects;
+    if (notificationsCheckbox) notificationsCheckbox.checked = userData.preferences.notifications;
+    if (darkModeCheckbox) darkModeCheckbox.checked = userData.preferences.darkMode;
+}
+
+/**
+ * Save profile changes
+ */
+function saveProfile() {
+    const profileName = document.getElementById('profileName');
+    const profileEmail = document.getElementById('profileEmail');
+    const profileUsername = document.getElementById('profileUsername');
+    const profileBio = document.getElementById('profileBio');
+    
+    // Validate inputs
+    if (profileName && !profileName.value.trim()) {
+        showNotification('Please enter your name', 'error');
+        return;
+    }
+    
+    if (profileEmail && !profileEmail.value.trim()) {
+        showNotification('Please enter your email', 'error');
+        return;
+    }
+    
+    // Update user data
+    if (profileName) userData.name = profileName.value.trim();
+    if (profileEmail) userData.email = profileEmail.value.trim();
+    if (profileUsername) userData.username = profileUsername.value.trim();
+    if (profileBio) userData.bio = profileBio.value.trim();
+    
+    // Save to localStorage
+    saveUserData(userData);
+    
+    // Update UI
+    updateSidebarUserInfo();
+    updateHomeStats();
+    
+    // Close modal
+    closeProfile();
+    
+    // Show success message
+    showNotification('Profile updated successfully!', 'success');
+}
+
+/**
+ * Handle avatar change
+ */
+function handleAvatarChange() {
+    showNotification('Avatar change feature - Connect to your avatar selection system here!', 'info');
+}
+
+/**
+ * Handle logout
+ */
+function handleLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+        // Reset to default data
+        localStorage.removeItem('quizAppUser');
+        userData = getUserData();
+        updateSidebarUserInfo();
+        updateProfileData();
+        updateHomeStats();
+        closeSidebar();
+        showNotification('Logged out successfully!', 'success');
+    }
+}
+
+// ============================================
+// 9. SCREEN MANAGEMENT
+// ============================================
+
+/**
+ * Show specific screen
+ */
 function showScreen(screen) {
-    homeScreen.classList.remove('active');
-    quizScreen.classList.remove('active');
-    resultsScreen.classList.remove('active');
+    if (homeScreen) homeScreen.classList.remove('active');
+    if (quizScreen) quizScreen.classList.remove('active');
+    if (resultsScreen) resultsScreen.classList.remove('active');
 
     switch(screen) {
         case 'home':
-            homeScreen.classList.add('active');
+            if (homeScreen) homeScreen.classList.add('active');
             break;
         case 'quiz':
-            quizScreen.classList.add('active');
+            if (quizScreen) quizScreen.classList.add('active');
             break;
         case 'results':
-            resultsScreen.classList.add('active');
+            if (resultsScreen) resultsScreen.classList.add('active');
             break;
     }
 }
 
-// Quiz Management
+// ============================================
+// 10. QUIZ MANAGEMENT
+// ============================================
+
+/**
+ * Start a quiz for the selected category
+ */
 function startQuiz(category) {
+    // Validate category
+    if (!quizData[category]) {
+        showNotification('Invalid category selected', 'error');
+        return;
+    }
+    
     // Reset quiz state
     currentCategory = category;
     currentQuestionIndex = 0;
@@ -315,11 +655,12 @@ function startQuiz(category) {
     selectedAnswer = null;
     answeredQuestions = 0;
     isAnswerSubmitted = false;
+    quizStartTime = Date.now();
     
-    // Set time based on number of questions (30 seconds per question)
+    // Set up quiz parameters
     const questions = quizData[category];
     totalQuestions = questions.length;
-    timeRemaining = totalQuestions * 30;
+    timeRemaining = totalQuestions * 30; // 30 seconds per question
     
     // Set category display name
     const categoryNames = {
@@ -329,14 +670,21 @@ function startQuiz(category) {
         technology: 'Technology'
     };
     
-    quizCategory.textContent = categoryNames[category];
+    if (quizCategory) {
+        quizCategory.textContent = categoryNames[category] || category;
+    }
     
     // Show quiz screen and start
     showScreen('quiz');
     loadQuestion();
     startTimer();
+    
+    console.log(`Quiz started: ${category} - ${totalQuestions} questions`);
 }
 
+/**
+ * Stop the current quiz
+ */
 function stopQuiz() {
     if (timer) {
         clearInterval(timer);
@@ -345,6 +693,9 @@ function stopQuiz() {
     resetQuizState();
 }
 
+/**
+ * Reset quiz state variables
+ */
 function resetQuizState() {
     currentCategory = '';
     currentQuestionIndex = 0;
@@ -353,14 +704,35 @@ function resetQuizState() {
     answeredQuestions = 0;
     timeRemaining = 180;
     isAnswerSubmitted = false;
-    submitBtn.textContent = 'SUBMIT';
+    quizStartTime = null;
+    if (submitBtn) submitBtn.textContent = 'SUBMIT';
 }
 
-// Question Management
+/**
+ * Handle quiz close button
+ */
+function handleCloseQuiz() {
+    if (quizScreen && quizScreen.classList.contains('active')) {
+        if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
+            stopQuiz();
+            showScreen('home');
+        }
+    } else {
+        showScreen('home');
+    }
+}
+
+// ============================================
+// 11. QUESTION MANAGEMENT
+// ============================================
+
+/**
+ * Load current question
+ */
 function loadQuestion() {
     const questions = quizData[currentCategory];
     
-    if (currentQuestionIndex >= questions.length) {
+    if (!questions || currentQuestionIndex >= questions.length) {
         showResults();
         return;
     }
@@ -370,37 +742,48 @@ function loadQuestion() {
     // Reset state for new question
     selectedAnswer = null;
     isAnswerSubmitted = false;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'SUBMIT';
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'SUBMIT';
+    }
     
     // Update question display
-    questionText.textContent = `${currentQuestionIndex + 1}. ${question.question}`;
-    currentQuestionEl.textContent = currentQuestionIndex + 1;
+    if (questionText) {
+        questionText.textContent = `${currentQuestionIndex + 1}. ${question.question}`;
+    }
+    if (currentQuestionEl) {
+        currentQuestionEl.textContent = currentQuestionIndex + 1;
+    }
     
     // Clear previous options
-    optionsContainer.innerHTML = '';
-    
-    // Create option elements
-    const optionLabels = ['A', 'B', 'C', 'D'];
-    question.options.forEach((option, index) => {
-        const optionEl = document.createElement('div');
-        optionEl.className = 'option';
-        optionEl.setAttribute('data-index', index);
-        optionEl.innerHTML = `
-            <div class="option-label">${optionLabels[index]}</div>
-            <div class="option-text">${option}</div>
-        `;
+    if (optionsContainer) {
+        optionsContainer.innerHTML = '';
         
-        optionEl.addEventListener('click', () => {
-            if (!isAnswerSubmitted) {
-                selectOption(index);
-            }
+        // Create option elements
+        const optionLabels = ['A', 'B', 'C', 'D'];
+        question.options.forEach((option, index) => {
+            const optionEl = document.createElement('div');
+            optionEl.className = 'option';
+            optionEl.setAttribute('data-index', index);
+            optionEl.innerHTML = `
+                <div class="option-label">${optionLabels[index]}</div>
+                <div class="option-text">${option}</div>
+            `;
+            
+            optionEl.addEventListener('click', () => {
+                if (!isAnswerSubmitted) {
+                    selectOption(index);
+                }
+            });
+            
+            optionsContainer.appendChild(optionEl);
         });
-        
-        optionsContainer.appendChild(optionEl);
-    });
+    }
 }
 
+/**
+ * Select an option
+ */
 function selectOption(index) {
     if (isAnswerSubmitted) return;
     
@@ -411,11 +794,16 @@ function selectOption(index) {
     
     // Add selection to clicked option
     const options = document.querySelectorAll('.option');
-    options[index].classList.add('selected');
-    selectedAnswer = index;
-    submitBtn.disabled = false;
+    if (options[index]) {
+        options[index].classList.add('selected');
+        selectedAnswer = index;
+        if (submitBtn) submitBtn.disabled = false;
+    }
 }
 
+/**
+ * Handle submit button click
+ */
 function handleSubmit() {
     if (isAnswerSubmitted) {
         // Move to next question
@@ -453,11 +841,25 @@ function handleSubmit() {
         score++;
     }
     
+    // Update category stats
+    if (userData.categoryStats[currentCategory]) {
+        userData.categoryStats[currentCategory].attempted++;
+        userData.categoryStats[currentCategory].total++;
+        if (selectedAnswer === question.correct) {
+            userData.categoryStats[currentCategory].correct++;
+        }
+    }
+    
     // Change button text to NEXT
-    submitBtn.textContent = 'NEXT';
-    submitBtn.disabled = false;
+    if (submitBtn) {
+        submitBtn.textContent = 'NEXT';
+        submitBtn.disabled = false;
+    }
 }
 
+/**
+ * Move to next question
+ */
 function nextQuestion() {
     currentQuestionIndex++;
     
@@ -468,7 +870,13 @@ function nextQuestion() {
     }
 }
 
-// Timer Management
+// ============================================
+// 12. TIMER MANAGEMENT
+// ============================================
+
+/**
+ * Start the quiz timer
+ */
 function startTimer() {
     updateTimerDisplay();
     
@@ -478,12 +886,18 @@ function startTimer() {
         
         if (timeRemaining <= 0) {
             clearInterval(timer);
+            timer = null;
             showResults();
         }
     }, 1000);
 }
 
+/**
+ * Update timer display
+ */
 function updateTimerDisplay() {
+    if (!timeRemainingEl) return;
+    
     const minutes = Math.floor(timeRemaining / 60);
     const seconds = timeRemaining % 60;
     timeRemainingEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} min`;
@@ -496,8 +910,15 @@ function updateTimerDisplay() {
     }
 }
 
-// Results Management
+// ============================================
+// 13. RESULTS MANAGEMENT
+// ============================================
+
+/**
+ * Show quiz results
+ */
 function showResults() {
+    // Stop timer
     if (timer) {
         clearInterval(timer);
         timer = null;
@@ -505,84 +926,506 @@ function showResults() {
     
     const questions = quizData[currentCategory];
     const percentage = Math.round((score / questions.length) * 100);
+    const timeTaken = quizStartTime ? Math.floor((Date.now() - quizStartTime) / 1000) : 0;
     
     // Update results display
-    scorePercentageEl.textContent = `${percentage}%`;
-    totalQuestionsEl.textContent = questions.length;
-    correctAnswersEl.textContent = score;
+    if (scorePercentageEl) scorePercentageEl.textContent = `${percentage}%`;
+    if (totalQuestionsEl) totalQuestionsEl.textContent = questions.length;
+    if (correctAnswersEl) correctAnswersEl.textContent = score;
     
-    // Update stats on home screen
-    updateStats();
+    // Update user statistics
+    userData.totalQuizzes++;
+    userData.points += score * 10;
     
+    // Update best score
+    if (percentage > userData.bestScore) {
+        userData.bestScore = percentage;
+    }
+    
+    // Calculate average score
+    const totalScore = userData.averageScore * (userData.totalQuizzes - 1) + percentage;
+    userData.averageScore = Math.round(totalScore / userData.totalQuizzes);
+    
+    // Update streak (simplified - you can make this more complex)
+    if (percentage >= 70) {
+        userData.currentStreak++;
+    } else {
+        userData.currentStreak = 0;
+    }
+    
+    // Award badges based on achievements
+    updateBadges(percentage, score, questions.length);
+    
+    // Add to quiz history
+    userData.quizHistory.push({
+        category: currentCategory,
+        score: score,
+        total: questions.length,
+        percentage: percentage,
+        timeTaken: timeTaken,
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+    });
+    
+    // Keep only last 50 quiz records
+    if (userData.quizHistory.length > 50) {
+        userData.quizHistory = userData.quizHistory.slice(-50);
+    }
+    
+    // Save updated user data
+    saveUserData(userData);
+    
+    // Update UI
+    updateHomeStats();
+    updateProfileData();
+    
+    // Show results screen
     showScreen('results');
-}
-
-// Stats Management (for home screen)
-function updateStats() {
-    // This is a simple implementation
-    // In a real app, you would store and retrieve these from a database
-    const currentPoints = parseInt(document.querySelector('.stat-value').textContent) || 230;
-    const pointsToAdd = score * 10;
     
-    // Update points display
-    document.querySelector('.stat-value').textContent = currentPoints + pointsToAdd;
+    console.log(`Quiz completed: ${score}/${questions.length} (${percentage}%)`);
 }
 
-// Share Functionality
+/**
+ * Update user badges based on performance
+ */
+function updateBadges(percentage, score, total) {
+    let newBadges = 0;
+    
+    // Perfect score badge
+    if (percentage === 100) {
+        newBadges++;
+    }
+    
+    // High scorer badge
+    if (percentage >= 90) {
+        newBadges++;
+    }
+    
+    // Milestone badges
+    if (userData.totalQuizzes === 10 || userData.totalQuizzes === 50 || userData.totalQuizzes === 100) {
+        newBadges++;
+    }
+    
+    userData.totalBadges += newBadges;
+}
+
+// ============================================
+// 14. HOME STATS UPDATE
+// ============================================
+
+/**
+ * Update home screen statistics
+ */
+function updateHomeStats() {
+    const homePoints = document.getElementById('homePoints');
+    const homeRank = document.getElementById('homeRank');
+    
+    if (homePoints) {
+        homePoints.textContent = userData.points;
+    }
+    
+    if (homeRank) {
+        // Calculate rank based on points (simplified algorithm)
+        const calculatedRank = Math.max(1, 10000 - Math.floor(userData.points / 10));
+        userData.rank = calculatedRank;
+        homeRank.innerHTML = `${calculatedRank}<span class="rank-suffix">₂</span>`;
+    }
+}
+
+// ============================================
+// 15. SHARE FUNCTIONALITY
+// ============================================
+
+/**
+ * Handle social media sharing
+ */
 function handleShare(e) {
     const shareButton = e.currentTarget;
-    const percentage = scorePercentageEl.textContent;
-    const category = quizCategory.textContent;
+    const percentage = scorePercentageEl ? scorePercentageEl.textContent : '0%';
+    const category = quizCategory ? quizCategory.textContent : 'Quiz';
     const shareText = `I scored ${percentage} in ${category} on Quiz App! Can you beat my score?`;
+    const shareUrl = window.location.href;
     
     if (shareButton.classList.contains('whatsapp')) {
-        window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+        window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`, '_blank');
     } else if (shareButton.classList.contains('facebook')) {
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}`, '_blank');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`, '_blank');
     } else if (shareButton.classList.contains('twitter')) {
-        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, '_blank');
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
+    }
+    
+    showNotification('Opening share dialog...', 'info');
+}
+
+// ============================================
+// 16. NOTIFICATION SYSTEM
+// ============================================
+
+/**
+ * Show notification toast
+ * @param {string} message - The message to display
+ * @param {string} type - 'success', 'error', 'info', 'warning'
+ */
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    
+    // Set colors based on type
+    const colors = {
+        success: 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)',
+        error: 'linear-gradient(135deg, #f44336 0%, #e53935 100%)',
+        info: 'linear-gradient(135deg, #ff9a56 0%, #ff7043 100%)',
+        warning: 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)'
+    };
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease;
+        max-width: 300px;
+        font-size: 14px;
+        font-weight: 500;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// ============================================
+// 17. UTILITY FUNCTIONS
+// ============================================
+
+/**
+ * Show coming soon message for features
+ */
+function showComingSoon(featureName) {
+    showNotification(`${featureName} feature coming soon!`, 'info');
+    closeSidebar();
+}
+
+/**
+ * Handle upgrade button click
+ */
+function handleUpgrade() {
+    showNotification('Upgrade to Premium - Add your payment integration here!', 'info');
+}
+
+/**
+ * Toggle dark mode
+ */
+function toggleDarkMode(enabled) {
+    if (enabled) {
+        document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+        showNotification('Dark mode enabled', 'success');
+    } else {
+        document.body.style.filter = '';
+        showNotification('Dark mode disabled', 'success');
     }
 }
 
-// Utility Functions
+/**
+ * Shuffle array (Fisher-Yates algorithm)
+ */
 function shuffleArray(array) {
-    // Fisher-Yates shuffle algorithm
-    for (let i = array.length - 1; i > 0; i--) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return array;
+    return shuffled;
 }
 
-// Keyboard shortcuts
+/**
+ * Format time duration
+ */
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+}
+
+/**
+ * Get greeting based on time of day
+ */
+function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 18) return 'Good Afternoon';
+    return 'Good Evening';
+}
+
+// ============================================
+// 18. KEYBOARD SHORTCUTS
+// ============================================
+
+/**
+ * Handle keyboard shortcuts
+ */
 document.addEventListener('keydown', (e) => {
-    if (quizScreen.classList.contains('active') && !isAnswerSubmitted) {
+    // Quiz shortcuts (A, B, C, D, Enter)
+    if (quizScreen && quizScreen.classList.contains('active') && !isAnswerSubmitted) {
         const key = e.key.toLowerCase();
         const optionMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
         
         if (key in optionMap) {
+            e.preventDefault();
             selectOption(optionMap[key]);
         } else if (key === 'enter' && selectedAnswer !== null) {
+            e.preventDefault();
             handleSubmit();
+        }
+    }
+    
+    // Close modals with Escape
+    if (e.key === 'Escape') {
+        if (profileModal && profileModal.classList.contains('active')) {
+            closeProfile();
+        } else if (sidebar && sidebar.classList.contains('active')) {
+            closeSidebar();
         }
     }
 });
 
-// Prevent accidental page reload during quiz
+// ============================================
+// 19. PAGE VISIBILITY & LIFECYCLE
+// ============================================
+
+/**
+ * Prevent accidental page reload during quiz
+ */
 window.addEventListener('beforeunload', (e) => {
-    if (quizScreen.classList.contains('active')) {
+    if (quizScreen && quizScreen.classList.contains('active')) {
         e.preventDefault();
-        e.returnValue = '';
+        e.returnValue = 'You have a quiz in progress. Are you sure you want to leave?';
+        return e.returnValue;
     }
 });
 
-// Initialize the app when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
+/**
+ * Handle page visibility changes (pause timer when tab is hidden)
+ */
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        // Page is hidden - pause timer
+        if (timer && quizScreen && quizScreen.classList.contains('active')) {
+            clearInterval(timer);
+            timer = null;
+            console.log('Quiz paused - tab hidden');
+        }
+    } else {
+        // Page is visible - resume timer
+        if (!timer && quizScreen && quizScreen.classList.contains('active') && timeRemaining > 0) {
+            startTimer();
+            console.log('Quiz resumed - tab visible');
+        }
+    }
+});
+
+// ============================================
+// 20. ANIMATION STYLES (Injected)
+// ============================================
+
+/**
+ * Inject animation keyframes into document
+ */
+const injectAnimationStyles = () => {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+    `;
+    document.head.appendChild(style);
+};
+
+// ============================================
+// 21. LOCAL STORAGE UTILITIES
+// ============================================
+
+/**
+ * Clear all local storage data
+ */
+function clearAllData() {
+    if (confirm('This will delete all your quiz data. Are you sure?')) {
+        localStorage.clear();
+        userData = getUserData();
+        updateHomeStats();
+        updateSidebarUserInfo();
+        updateProfileData();
+        showNotification('All data cleared successfully', 'success');
+    }
 }
 
-// Console message
-console.log('%c Quiz App Loaded Successfully! ', 'background: #ff9a56; color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
-console.log('Tip: You can use A, B, C, D keys to select answers and Enter to submit!');
+/**
+ * Export user data as JSON
+ */
+function exportData() {
+    const dataStr = JSON.stringify(userData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `quiz-app-data-${Date.now()}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showNotification('Data exported successfully', 'success');
+}
+
+/**
+ * Import user data from JSON file
+ */
+function importData(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const importedData = JSON.parse(e.target.result);
+            userData = { ...getUserData(), ...importedData };
+            saveUserData(userData);
+            updateHomeStats();
+            updateSidebarUserInfo();
+            updateProfileData();
+            showNotification('Data imported successfully', 'success');
+        } catch (error) {
+            showNotification('Error importing data: Invalid file format', 'error');
+            console.error('Import error:', error);
+        }
+    };
+    reader.readAsText(file);
+}
+
+// ============================================
+// 22. PERFORMANCE MONITORING
+// ============================================
+
+/**
+ * Log performance metrics
+ */
+function logPerformance() {
+    if (window.performance && window.performance.timing) {
+        const timing = window.performance.timing;
+        const loadTime = timing.loadEventEnd - timing.navigationStart;
+        console.log(`Page load time: ${loadTime}ms`);
+    }
+}
+
+// ============================================
+// 23. ERROR HANDLING
+// ============================================
+
+/**
+ * Global error handler
+ */
+window.addEventListener('error', (e) => {
+    console.error('Global error:', e.error);
+    showNotification('An error occurred. Please refresh the page.', 'error');
+});
+
+/**
+ * Unhandled promise rejection handler
+ */
+window.addEventListener('unhandledrejection', (e) => {
+    console.error('Unhandled promise rejection:', e.reason);
+    showNotification('An error occurred. Please try again.', 'error');
+});
+
+// ============================================
+// 24. INITIALIZATION SEQUENCE
+// ============================================
+
+/**
+ * Initialize app when DOM is ready
+ */
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        init();
+        injectAnimationStyles();
+        logPerformance();
+    });
+} else {
+    init();
+    injectAnimationStyles();
+    logPerformance();
+}
+
+// ============================================
+// 25. DEVELOPMENT HELPERS (Console Commands)
+// ============================================
+
+// Make these functions available in console for debugging
+window.quizApp = {
+    getUserData: () => userData,
+    clearData: clearAllData,
+    exportData: exportData,
+    addPoints: (points) => {
+        userData.points += points;
+        saveUserData(userData);
+        updateHomeStats();
+        showNotification(`Added ${points} points!`, 'success');
+    },
+    resetQuiz: () => {
+        stopQuiz();
+        showScreen('home');
+        showNotification('Quiz reset', 'info');
+    },
+    completeQuiz: () => {
+        score = totalQuestions;
+        showResults();
+    },
+    version: '1.0.0'
+};
+
+// ============================================
+// END OF SCRIPT
+// ============================================
+
+console.log('%c Quiz App v1.0.0 ', 'background: #4caf50; color: white; font-size: 14px; padding: 5px 10px; border-radius: 5px;');
+console.log('%c Development Mode Active ', 'background: #ff9800; color: white; font-size: 12px; padding: 5px 10px; border-radius: 5px;');
+console.log('💡 Type "quizApp" in console to see available debugging commands');
+console.log('💡 Available commands: getUserData(), clearData(), exportData(), addPoints(n), resetQuiz(), completeQuiz()');
+console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
