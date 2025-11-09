@@ -3,21 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App by FluxDev-Tech</title>
+    <title>Quiz App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="user-info">
+                <div class="user-avatar">👤</div>
+                <div class="user-details">
+                    <h3 id="sidebarUserName">Guest User</h3>
+                    <p id="sidebarUserEmail">guest@quizapp.com</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-screen="home">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="nav-item" data-screen="profile">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile</span>
+                </a>
+                <a href="#" class="nav-item" id="leaderboardBtn">
+                    <span class="nav-icon">🏆</span>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="#" class="nav-item" id="achievementsBtn">
+                    <span class="nav-icon">🎖️</span>
+                    <span>Achievements</span>
+                </a>
+                <a href="#" class="nav-item" id="historyBtn">
+                    <span class="nav-icon">📊</span>
+                    <span>Quiz History</span>
+                </a>
+                <a href="#" class="nav-item" id="settingsBtn">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+                <a href="#" class="nav-item" id="helpBtn">
+                    <span class="nav-icon">❓</span>
+                    <span>Help & Support</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Profile Modal -->
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-content">
+            <div class="profile-header">
+                <h2>Profile</h2>
+                <button class="close-profile" id="closeProfile">✕</button>
+            </div>
+            <div class="profile-body">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-large">👤</div>
+                    <button class="change-avatar-btn" id="changeAvatarBtn">Change Avatar</button>
+                </div>
+                <div class="profile-info-section">
+                    <div class="profile-field">
+                        <label>Full Name</label>
+                        <input type="text" id="profileName" value="Guest User" />
+                    </div>
+                    <div class="profile-field">
+                        <label>Email</label>
+                        <input type="email" id="profileEmail" value="guest@quizapp.com" />
+                    </div>
+                    <div class="profile-field">
+                        <label>Username</label>
+                        <input type="text" id="profileUsername" value="guest_user" />
+                    </div>
+                    <div class="profile-field">
+                        <label>Bio</label>
+                        <textarea id="profileBio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                    </div>
+                </div>
+                <div class="profile-stats-section">
+                    <h3>Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="totalQuizzes">0</div>
+                                <div class="stat-label">Quizzes Taken</div>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="averageScore">0%</div>
+                                <div class="stat-label">Average Score</div>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">🔥</div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="currentStreak">0</div>
+                                <div class="stat-label">Day Streak</div>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">🏅</div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="totalBadges">0</div>
+                                <div class="stat-label">Badges Earned</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-preferences">
+                    <h3>Preferences</h3>
+                    <div class="preference-item">
+                        <label>
+                            <input type="checkbox" id="soundEffects" checked />
+                            <span>Sound Effects</span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <label>
+                            <input type="checkbox" id="notifications" checked />
+                            <span>Notifications</span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <label>
+                            <input type="checkbox" id="darkMode" />
+                            <span>Dark Mode</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn-primary" id="saveProfileBtn">Save Changes</button>
+                    <button class="btn-secondary" id="cancelProfileBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Home Screen -->
         <div id="homeScreen" class="screen active">
             <header>
-                <button class="menu-btn">
+                <button class="menu-btn" id="menuBtn">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
                 <h1>Quiz App</h1>
-                <button class="profile-btn">
+                <button class="profile-btn" id="profileBtn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="8" r="4" fill="currentColor"/>
                         <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2"/>
@@ -27,12 +175,12 @@
 
             <div class="stats-card">
                 <div class="stat">
-                    <div class="stat-value">250</div>
+                    <div class="stat-value" id="homePoints">230</div>
                     <div class="stat-label">Points</div>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat">
-                    <div class="stat-value">1350<span class="rank-suffix">₂</span></div>
+                    <div class="stat-value" id="homeRank">1250<span class="rank-suffix">₂</span></div>
                     <div class="stat-label">World Rank</div>
                 </div>
             </div>
