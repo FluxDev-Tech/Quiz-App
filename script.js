@@ -1127,10 +1127,10 @@ function handleUpgrade() {
 function toggleDarkMode(enabled) {
     if (enabled) {
         document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-        showNotification('Dark mode enabled', 'success');
+        showNotification('Light mode enabled', 'success');
     } else {
         document.body.style.filter = '';
-        showNotification('Dark mode disabled', 'success');
+        showNotification('Light mode disabled', 'success');
     }
 }
 
