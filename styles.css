@@ -1,5 +1,11 @@
-/* Quiz App Styles - Save as styles.css */
+/* ============================================
+   QUIZ APP - COMPLETE STYLESHEET
+   Save as: styles.css
+   ============================================ */
 
+/* ============================================
+   1. BASE STYLES & RESET
+   ============================================ */
 * {
     margin: 0;
     padding: 0;
@@ -14,8 +20,12 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    overflow-x: hidden;
 }
 
+/* ============================================
+   2. MAIN CONTAINER
+   ============================================ */
 .container {
     width: 100%;
     max-width: 480px;
@@ -27,6 +37,9 @@ body {
     min-height: 600px;
 }
 
+/* ============================================
+   3. SCREEN MANAGEMENT
+   ============================================ */
 .screen {
     display: none;
     animation: fadeIn 0.3s ease;
@@ -47,7 +60,446 @@ body {
     }
 }
 
-/* Header */
+/* ============================================
+   4. SIDEBAR MENU STYLES
+   ============================================ */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 320px;
+    height: 100vh;
+    background: linear-gradient(180deg, #2d3561 0%, #1a1f3a 100%);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+    transition: left 0.3s ease;
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.close-sidebar {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: transform 0.2s;
+}
+
+.close-sidebar:hover {
+    transform: scale(1.1);
+}
+
+/* Sidebar Content */
+.sidebar-content {
+    padding: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff9a56 0%, #ff7043 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.user-details h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.user-details p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s;
+    font-size: 16px;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, #ff9a56 0%, #ff7043 100%);
+    color: #fff;
+}
+
+.nav-icon {
+    font-size: 22px;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    border-radius: 12px;
+    color: #ff5252;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: #ff5252;
+}
+
+/* ============================================
+   5. PROFILE MODAL STYLES
+   ============================================ */
+.profile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.profile-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile-content {
+    background: linear-gradient(180deg, #2d3561 0%, #1a1f3a 100%);
+    border-radius: 25px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-header h2 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.close-profile {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: transform 0.2s;
+}
+
+.close-profile:hover {
+    transform: scale(1.1);
+}
+
+.profile-body {
+    padding: 25px;
+}
+
+/* Profile Avatar Section */
+.profile-avatar-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar-large {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #ff9a56 0%, #ff7043 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    margin: 0 auto 15px;
+    box-shadow: 0 10px 30px rgba(255, 122, 67, 0.3);
+}
+
+.change-avatar-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.change-avatar-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Profile Info Section */
+.profile-info-section {
+    margin-bottom: 30px;
+}
+
+.profile-field {
+    margin-bottom: 20px;
+}
+
+.profile-field label {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.profile-field input,
+.profile-field textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 15px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    transition: all 0.3s;
+}
+
+.profile-field input:focus,
+.profile-field textarea:focus {
+    outline: none;
+    border-color: #ff9a56;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.profile-field textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Profile Stats Section */
+.profile-stats-section {
+    margin-bottom: 30px;
+}
+
+.profile-stats-section h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-icon {
+    font-size: 32px;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-number {
+    color: #ff9a56;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+}
+
+/* Profile Preferences */
+.profile-preferences {
+    margin-bottom: 30px;
+}
+
+.profile-preferences h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.preference-item {
+    margin-bottom: 15px;
+}
+
+.preference-item label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+.preference-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #ff9a56;
+}
+
+/* Profile Actions */
+.profile-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-primary,
+.btn-secondary {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff9a56 0%, #ff7043 100%);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(255, 122, 67, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(255, 122, 67, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   6. HOME SCREEN HEADER
+   ============================================ */
 header {
     display: flex;
     justify-content: space-between;
@@ -82,9 +534,12 @@ h1 {
     background: #fff;
     margin: 5px 0;
     border-radius: 2px;
+    transition: all 0.3s;
 }
 
-/* Stats Card */
+/* ============================================
+   7. STATS CARD (Home Screen)
+   ============================================ */
 .stats-card {
     background: linear-gradient(135deg, #ff9a56 0%, #ff7043 100%);
     border-radius: 20px;
@@ -124,7 +579,9 @@ h1 {
     background: rgba(255, 255, 255, 0.3);
 }
 
-/* Categories */
+/* ============================================
+   8. CATEGORIES (Home Screen)
+   ============================================ */
 .categories {
     display: flex;
     flex-direction: column;
@@ -160,7 +617,9 @@ h1 {
     font-weight: 500;
 }
 
-/* Upgrade Button */
+/* ============================================
+   9. UPGRADE BUTTON
+   ============================================ */
 .upgrade-btn {
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
@@ -180,7 +639,9 @@ h1 {
     box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
 }
 
-/* Quiz Screen */
+/* ============================================
+   10. QUIZ SCREEN
+   ============================================ */
 .quiz-header {
     display: flex;
     justify-content: space-between;
@@ -242,7 +703,9 @@ h1 {
     line-height: 1.6;
 }
 
-/* Options */
+/* ============================================
+   11. QUIZ OPTIONS
+   ============================================ */
 .options-container {
     display: flex;
     flex-direction: column;
@@ -316,6 +779,9 @@ h1 {
     color: #fff;
 }
 
+/* ============================================
+   12. SUBMIT BUTTON
+   ============================================ */
 .submit-btn {
     width: 100%;
     background: linear-gradient(135deg, #ff9a56 0%, #ff7043 100%);
@@ -340,7 +806,9 @@ h1 {
     cursor: not-allowed;
 }
 
-/* Results Screen */
+/* ============================================
+   13. RESULTS SCREEN
+   ============================================ */
 .results-close {
     position: absolute;
     top: 30px;
@@ -410,6 +878,9 @@ h1 {
     color: #4caf50;
 }
 
+/* ============================================
+   14. SHARE SECTION
+   ============================================ */
 .share-section {
     display: flex;
     align-items: center;
@@ -455,7 +926,33 @@ h1 {
     transform: scale(1.1);
 }
 
-/* Responsive Design */
+/* ============================================
+   15. SCROLLBAR STYLES
+   ============================================ */
+.sidebar::-webkit-scrollbar,
+.profile-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.profile-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.profile-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 154, 86, 0.5);
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.profile-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 154, 86, 0.7);
+}
+
+/* ============================================
+   16. RESPONSIVE DESIGN - MOBILE
+   ============================================ */
 @media (max-width: 480px) {
     .container {
         border-radius: 30px;
@@ -482,8 +979,28 @@ h1 {
     .option-text {
         font-size: 14px;
     }
+
+    .sidebar {
+        width: 280px;
+        left: -280px;
+    }
+
+    .profile-content {
+        max-width: 95%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
 }
 
+/* ============================================
+   17. RESPONSIVE DESIGN - TABLET & DESKTOP
+   ============================================ */
 @media (min-width: 768px) {
     body {
         padding: 40px;
@@ -493,3 +1010,7 @@ h1 {
         max-width: 500px;
     }
 }
+
+/* ============================================
+   END OF STYLESHEET
+   ============================================ */
