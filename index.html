@@ -4,25 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App - Interactive Learning</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/ui.css">
     <meta name="description" content="Test your knowledge with our interactive quiz app covering Science, Math, Arts, and more!">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23ff9a56'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white'>?</text></svg>">
 </head>
 <body>
     <!-- Sidebar Menu -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>Menu</h2>
-            <button class="close-sidebar" id="closeSidebar" aria-label="Close Menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
+            <div class="app-logo">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Circle -->
+                    <circle cx="50" cy="50" r="45" fill="url(#gradient1)"/>
+                    
+                    <!-- Question Mark -->
+                    <path d="M50 25C41 25 34 32 34 41H42C42 36 45.5 33 50 33C54.5 33 58 36 58 41C58 44 56 46 53 48L49 51C46 53 44 56 44 60H52C52 57 53 55 56 53L59 51C63 48 66 45 66 41C66 32 59 25 50 25Z" fill="white"/>
+                    <circle cx="48" cy="68" r="4" fill="white"/>
+                    
+                    <!-- Brain Icon (Simplified) -->
+                    <path d="M70 55C70 55 72 58 75 58C77 58 78 56 78 54C78 52 77 50 75 50C73 50 71 51 70 53" stroke="white" stroke-width="2" fill="none"/>
+                    
+                    <!-- Sparkle Effects -->
+                    <circle cx="25" cy="30" r="2" fill="#FFD700"/>
+                    <circle cx="75" cy="35" r="2" fill="#FFD700"/>
+                    <circle cx="30" cy="70" r="2" fill="#FFD700"/>
+                    
+                    <!-- Gradient Definition -->
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff9a56;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff7043;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
                 </svg>
-            </button>
+                <div class="logo-text">
+                    <h2>Quiz App</h2>
+                    <span class="logo-tagline">Test Your Knowledge</span>
+                </div>
+            </div>
+            <button class="close-sidebar" id="closeSidebar" aria-label="Close Menu">✕</button>
         </div>
         <div class="sidebar-content">
             <div class="user-info">
-                <div class="user-avatar" id="sidebarUserAvatar">
-                    <img src="" alt="User Avatar" id="sidebarAvatarImg">
+                <div class="user-avatar">
+                    <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Avatar Background -->
+                        <circle cx="50" cy="50" r="50" fill="url(#avatarGradient)"/>
+                        <!-- Head -->
+                        <circle cx="50" cy="35" r="15" fill="white"/>
+                        <!-- Body -->
+                        <path d="M30 70C30 55 37 50 50 50C63 50 70 55 70 70L70 80C70 85 65 90 60 90L40 90C35 90 30 85 30 80Z" fill="white"/>
+                        <!-- Gradient -->
+                        <defs>
+                            <linearGradient id="avatarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
                 </div>
                 <div class="user-details">
                     <h3 id="sidebarUserName">Guest User</h3>
@@ -32,71 +72,89 @@
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active" data-screen="home">
                     <span class="nav-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
                         </svg>
                     </span>
                     <span>Home</span>
                 </a>
                 <a href="#" class="nav-item" data-screen="profile">
                     <span class="nav-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
                         </svg>
                     </span>
                     <span>Profile</span>
                 </a>
+                <a href="#" class="nav-item" id="leaderboardBtn">
+                    <span class="nav-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                            <path d="M4 22h16"/>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                        </svg>
+                    </span>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="#" class="nav-item" id="historyBtn">
+                    <span class="nav-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </span>
+                    <span>Quiz History</span>
+                </a>
+                <a href="#" class="nav-item" id="achievementsBtn">
+                    <span class="nav-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="7"/>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                        </svg>
+                    </span>
+                    <span>Achievements</span>
+                </a>
+                <a href="#" class="nav-item" id="settingsBtn">
+                    <span class="nav-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m-9-9h6m6 0h6m-2.636-5.364l-4.243 4.243m0 0L5.636 18.364m0-12.728l4.243 4.243m0 0l4.242 4.242"/>
+                        </svg>
+                    </span>
+                    <span>Settings</span>
+                </a>
             </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Avatar Selection Modal -->
-    <div class="avatar-modal" id="avatarModal">
-        <div class="avatar-modal-content">
-            <div class="avatar-modal-header">
-                <h2>Choose Your Avatar</h2>
-                <button class="close-avatar-modal" id="closeAvatarModal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-            <div class="avatar-grid" id="avatarGrid">
-                <!-- Avatars will be dynamically generated -->
-            </div>
-        </div>
-    </div>
-
     <!-- Profile Modal -->
     <div class="profile-modal" id="profileModal">
         <div class="profile-content">
             <div class="profile-header">
                 <h2>Profile</h2>
-                <button class="close-profile" id="closeProfile" aria-label="Close Profile">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
+                <button class="close-profile" id="closeProfile" aria-label="Close Profile">✕</button>
             </div>
             <div class="profile-body">
                 <div class="profile-avatar-section">
-                    <div class="profile-avatar-large" id="profileAvatarLarge">
-                        <img src="" alt="Profile Avatar" id="profileAvatarImg">
-                    </div>
-                    <button class="change-avatar-btn" id="changeAvatarBtn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                            <circle cx="12" cy="13" r="4"></circle>
-                        </svg>
-                        Change Avatar
-                    </button>
+                    <div class="profile-avatar-large">👤</div>
+                    <button class="change-avatar-btn" id="changeAvatarBtn">Change Avatar</button>
                 </div>
                 <div class="profile-info-section">
                     <div class="profile-field">
@@ -166,7 +224,7 @@
                     <div class="preference-item">
                         <label>
                             <input type="checkbox" id="darkMode" />
-                            <span>Light Mode</span>
+                            <span>Dark Mode</span>
                         </label>
                     </div>
                 </div>
@@ -184,23 +242,16 @@
         <div id="homeScreen" class="screen active">
             <header>
                 <button class="menu-btn" id="menuBtn" aria-label="Open Menu">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
-                <h1>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="logo-icon">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                    Quiz App
-                </h1>
+                <h1>Quiz App</h1>
                 <button class="profile-btn" id="profileBtn" aria-label="Open Profile">
-                    <div class="profile-btn-avatar" id="headerAvatar">
-                        <img src="" alt="Profile" id="headerAvatarImg">
-                    </div>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="8" r="4" fill="currentColor"/>
+                        <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2"/>
+                    </svg>
                 </button>
             </header>
 
@@ -239,12 +290,7 @@
                 </div>
             </div>
 
-            <button class="upgrade-btn" id="upgradeBtn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                </svg>
-                UPGRADE TO PREMIUM
-            </button>
+            <button class="upgrade-btn" id="upgradeBtn">UPGRADE TO PREMIUM</button>
         </div>
 
         <!-- Quiz Screen -->
@@ -254,18 +300,13 @@
                     <span class="category-icon-small" id="quizCategoryIcon">🔬</span>
                     <span id="quizCategory">Science and Nature</span>
                 </div>
-                <button class="close-btn" aria-label="Close Quiz">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
+                <button class="close-btn" aria-label="Close Quiz">✕</button>
             </header>
 
             <div class="quiz-progress">
                 <div class="progress-info">
                     <span>Question: <span id="currentQuestion">1</span> / <span id="totalQuestionsDisplay">10</span></span>
-                    <span id="timeRemaining">03:00</span>
+                    <span id="timeRemaining">05:00</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
@@ -285,12 +326,7 @@
 
         <!-- Results Screen -->
         <div id="resultsScreen" class="screen">
-            <button class="close-btn results-close" aria-label="Close Results">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
+            <button class="close-btn results-close" aria-label="Close Results">✕</button>
             
             <div class="results-card">
                 <div class="trophy-animation">
@@ -357,17 +393,11 @@
 
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                <circle cx="40" cy="40" r="32" stroke="#e0e0e0" stroke-width="6"/>
-                <circle cx="40" cy="40" r="32" stroke="#6c5ce7" stroke-width="6" stroke-linecap="round" 
-                        stroke-dasharray="150 50" class="spinner-circle"/>
-            </svg>
-        </div>
-        <p class="loading-text">Loading Quiz...</p>
+        <div class="loading-spinner"></div>
+        <p>Loading Quiz...</p>
     </div>
 
-    <script src="ui.js"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/ui.js"></script>
 </body>
 </html>
