@@ -1243,10 +1243,10 @@ const EventHandlers = {
     toggleDarkMode(enabled) {
         if (enabled) {
             document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-            Utils.showNotification('Dark mode enabled', 'success');
+            Utils.showNotification('Light mode enabled', 'success');
         } else {
             document.body.style.filter = '';
-            Utils.showNotification('Dark mode disabled', 'success');
+            Utils.showNotification('Light mode disabled', 'success');
         }
     }
 };
