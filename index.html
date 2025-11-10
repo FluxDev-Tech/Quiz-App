@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App</title>
+    <title>Quiz App - Interactive Learning</title>
     <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Test your knowledge with our interactive quiz app covering Science, Math, Arts, and more!">
 </head>
 <body>
     <!-- Sidebar Menu -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>Menu</h2>
-            <button class="close-sidebar" id="closeSidebar">✕</button>
+            <button class="close-sidebar" id="closeSidebar" aria-label="Close Menu">✕</button>
         </div>
         <div class="sidebar-content">
             <div class="user-info">
@@ -41,7 +42,7 @@
         <div class="profile-content">
             <div class="profile-header">
                 <h2>Profile</h2>
-                <button class="close-profile" id="closeProfile">✕</button>
+                <button class="close-profile" id="closeProfile" aria-label="Close Profile">✕</button>
             </div>
             <div class="profile-body">
                 <div class="profile-avatar-section">
@@ -50,19 +51,19 @@
                 </div>
                 <div class="profile-info-section">
                     <div class="profile-field">
-                        <label>Full Name</label>
-                        <input type="text" id="profileName" value="Guest User" />
+                        <label for="profileName">Full Name</label>
+                        <input type="text" id="profileName" placeholder="Enter your name" required />
                     </div>
                     <div class="profile-field">
-                        <label>Email</label>
-                        <input type="email" id="profileEmail" value="guest@quizapp.com" />
+                        <label for="profileEmail">Email</label>
+                        <input type="email" id="profileEmail" placeholder="Enter your email" required />
                     </div>
                     <div class="profile-field">
-                        <label>Username</label>
-                        <input type="text" id="profileUsername" value="guest_user" />
+                        <label for="profileUsername">Username</label>
+                        <input type="text" id="profileUsername" placeholder="Choose a username" required />
                     </div>
                     <div class="profile-field">
-                        <label>Bio</label>
+                        <label for="profileBio">Bio</label>
                         <textarea id="profileBio" rows="3" placeholder="Tell us about yourself..."></textarea>
                     </div>
                 </div>
@@ -116,7 +117,7 @@
                     <div class="preference-item">
                         <label>
                             <input type="checkbox" id="darkMode" />
-                            <span>Light Mode</span>
+                            <span>Dark Mode</span>
                         </label>
                     </div>
                 </div>
@@ -128,17 +129,18 @@
         </div>
     </div>
 
+    <!-- Main Container -->
     <div class="container">
         <!-- Home Screen -->
         <div id="homeScreen" class="screen active">
             <header>
-                <button class="menu-btn" id="menuBtn">
+                <button class="menu-btn" id="menuBtn" aria-label="Open Menu">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
                 <h1>Quiz App</h1>
-                <button class="profile-btn" id="profileBtn">
+                <button class="profile-btn" id="profileBtn" aria-label="Open Profile">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="8" r="4" fill="currentColor"/>
                         <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2"/>
@@ -159,41 +161,48 @@
             </div>
 
             <div class="categories">
-                <div class="category-card" data-category="art">
-                    <span class="category-icon">🎨</span>
-                    <span class="category-name">Art and Literature</span>
+                <div class="category-card" data-category="math" data-icon="📊">
+                    <span class="category-icon">📊</span>
+                    <span class="category-name">Statistics & Math</span>
                 </div>
-                <div class="category-card" data-category="general">
-                    <span class="category-icon">📦</span>
-                    <span class="category-name">General Knowledge</span>
-                </div>
-                <div class="category-card" data-category="science">
+                <div class="category-card" data-category="science" data-icon="🔬">
                     <span class="category-icon">🔬</span>
                     <span class="category-name">Science & Nature</span>
                 </div>
-                <div class="category-card" data-category="technology">
+                <div class="category-card" data-category="art" data-icon="🎨">
+                    <span class="category-icon">🎨</span>
+                    <span class="category-name">Art and Literature</span>
+                </div>
+                <div class="category-card" data-category="general" data-icon="📦">
+                    <span class="category-icon">📦</span>
+                    <span class="category-name">General Knowledge</span>
+                </div>
+                <div class="category-card" data-category="technology" data-icon="💡">
                     <span class="category-icon">💡</span>
                     <span class="category-name">Technology</span>
                 </div>
             </div>
 
-            <button class="upgrade-btn">UPGRADE</button>
+            <button class="upgrade-btn" id="upgradeBtn">UPGRADE TO PREMIUM</button>
         </div>
 
         <!-- Quiz Screen -->
         <div id="quizScreen" class="screen">
             <header class="quiz-header">
                 <div class="quiz-info">
-                    <span class="category-icon-small">🔬</span>
+                    <span class="category-icon-small" id="quizCategoryIcon">🔬</span>
                     <span id="quizCategory">Science and Nature</span>
                 </div>
-                <button class="close-btn">✕</button>
+                <button class="close-btn" aria-label="Close Quiz">✕</button>
             </header>
 
             <div class="quiz-progress">
                 <div class="progress-info">
-                    <span>Quiz : <span id="currentQuestion">1</span></span>
-                    <span id="timeRemaining">03:00 min</span>
+                    <span>Question: <span id="currentQuestion">1</span> / <span id="totalQuestionsDisplay">10</span></span>
+                    <span id="timeRemaining">05:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
 
@@ -202,51 +211,83 @@
             </div>
 
             <div class="options-container" id="optionsContainer">
-                <!-- Options will be inserted here -->
+                <!-- Options will be inserted here dynamically -->
             </div>
 
-            <button class="submit-btn" id="submitBtn">SUBMIT</button>
+            <button class="submit-btn" id="submitBtn" disabled>SUBMIT</button>
         </div>
 
         <!-- Results Screen -->
         <div id="resultsScreen" class="screen">
-            <button class="close-btn results-close">✕</button>
+            <button class="close-btn results-close" aria-label="Close Results">✕</button>
             
             <div class="results-card">
-                <div class="trophy-icon">🏆</div>
-                <h2>Congrats!</h2>
-                <div class="score-display">
-                    <span id="scorePercentage">90%</span> Score
+                <div class="trophy-animation">
+                    <div class="trophy-icon">🏆</div>
                 </div>
-                <p class="results-text">
-                    Quiz completed successfully.
-                </p>
+                <h2 id="resultsTitle">Congratulations!</h2>
+                <div class="score-display">
+                    <span id="scorePercentage">90%</span>
+                    <span class="score-label">Score</span>
+                </div>
+                <div class="performance-badge" id="performanceBadge">
+                    <span class="badge-icon">⭐</span>
+                    <span class="badge-text">Excellent</span>
+                </div>
+                <p class="results-text">Quiz completed successfully!</p>
                 <p class="results-details">
-                    You attempt <span class="highlight" id="totalQuestions">60</span> questions and<br>
-                    from that <span class="highlight correct" id="correctAnswers">54</span> answer is correct.
+                    You answered <span class="highlight correct" id="correctAnswers">9</span> out of 
+                    <span class="highlight" id="totalQuestions">10</span> questions correctly.
                 </p>
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <span class="result-icon">⏱️</span>
+                        <span class="result-value" id="timeTaken">2:30</span>
+                        <span class="result-label">Time Taken</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-icon">🎯</span>
+                        <span class="result-value" id="accuracyRate">90%</span>
+                        <span class="result-label">Accuracy</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-icon">⚡</span>
+                        <span class="result-value" id="pointsEarned">+90</span>
+                        <span class="result-label">Points Earned</span>
+                    </div>
+                </div>
                 <div class="share-section">
-                    <span>Share with us :</span>
+                    <span>Share your achievement:</span>
                     <div class="share-icons">
-                        <button class="share-icon whatsapp">
+                        <button class="share-icon whatsapp" aria-label="Share on WhatsApp">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                         </button>
-                        <button class="share-icon facebook">
+                        <button class="share-icon facebook" aria-label="Share on Facebook">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
                         </button>
-                        <button class="share-icon twitter">
+                        <button class="share-icon twitter" aria-label="Share on Twitter">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                             </svg>
                         </button>
                     </div>
                 </div>
+                <div class="results-actions">
+                    <button class="btn-primary" id="retryQuizBtn">Try Again</button>
+                    <button class="btn-secondary" id="homeBtn">Back to Home</button>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Loading Quiz...</p>
     </div>
 
     <script src="script.js"></script>
