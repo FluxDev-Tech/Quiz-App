@@ -1,1431 +1,1487 @@
 /* ============================================
-   QUIZ APP - COMPLETE JAVASCRIPT
+   QUIZ APP - ENHANCED JAVASCRIPT v2.0
    Save as: script.js
    ============================================ */
 
+'use strict';
+
 // ============================================
-// 1. QUIZ DATA - QUESTION BANK
+// 1. QUIZ DATA WITH STATISTICS & MATH
 // ============================================
 const quizData = {
+    math: [
+        {
+            question: "What is the mean of the following dataset: 5, 10, 15, 20, 25?",
+            options: ["12", "15", "17.5", "20"],
+            correct: 1,
+            explanation: "Mean = (5+10+15+20+25)/5 = 75/5 = 15"
+        },
+        {
+            question: "What is the median of: 3, 7, 9, 12, 15?",
+            options: ["7", "9", "12", "10"],
+            correct: 1,
+            explanation: "The median is the middle value when arranged in order: 9"
+        },
+        {
+            question: "If a die is rolled, what is the probability of getting a number greater than 4?",
+            options: ["1/6", "1/3", "1/2", "2/3"],
+            correct: 1,
+            explanation: "Numbers greater than 4 are 5 and 6. Probability = 2/6 = 1/3"
+        },
+        {
+            question: "What is the mode of: 2, 4, 4, 6, 8, 8, 8, 10?",
+            options: ["4", "6", "8", "10"],
+            correct: 2,
+            explanation: "Mode is the most frequently occurring value: 8 appears 3 times"
+        },
+        {
+            question: "What is the range of the dataset: 5, 12, 18, 3, 25, 9?",
+            options: ["20", "22", "25", "30"],
+            correct: 1,
+            explanation: "Range = Maximum - Minimum = 25 - 3 = 22"
+        },
+        {
+            question: "Solve: 3x + 7 = 22. What is x?",
+            options: ["3", "5", "7", "9"],
+            correct: 1,
+            explanation: "3x = 22 - 7 = 15, therefore x = 15/3 = 5"
+        },
+        {
+            question: "What is 25% of 200?",
+            options: ["25", "40", "50", "75"],
+            correct: 2,
+            explanation: "25% of 200 = 0.25 × 200 = 50"
+        },
+        {
+            question: "If you flip two coins, what is the probability of getting two heads?",
+            options: ["1/2", "1/4", "1/3", "2/3"],
+            correct: 1,
+            explanation: "P(HH) = P(H) × P(H) = 1/2 × 1/2 = 1/4"
+        },
+        {
+            question: "What is the standard deviation concept measuring?",
+            options: ["Central tendency", "Spread of data", "Correlation", "Causation"],
+            correct: 1,
+            explanation: "Standard deviation measures how spread out numbers are from the mean"
+        },
+        {
+            question: "In a normal distribution, approximately what percentage of data falls within one standard deviation of the mean?",
+            options: ["50%", "68%", "95%", "99.7%"],
+            correct: 1,
+            explanation: "The 68-95-99.7 rule states that 68% of data falls within 1 standard deviation"
+        }
+    ],
     science: [
         {
-            question: "Which space agency has decided to carry out first all-female spacewalk at the International Space Station (ISS)?",
+            question: "Which space agency conducted the first all-female spacewalk?",
             options: ["Roscosmos", "NASA", "ISRO", "JAXA"],
-            correct: 1
+            correct: 1,
+            explanation: "NASA conducted this historic spacewalk in 2019"
         },
         {
             question: "What is the chemical symbol for gold?",
             options: ["Go", "Gd", "Au", "Ag"],
-            correct: 2
+            correct: 2,
+            explanation: "Au comes from the Latin word 'aurum'"
         },
         {
             question: "How many bones are in the adult human body?",
             options: ["186", "206", "226", "246"],
-            correct: 1
+            correct: 1,
+            explanation: "Adults have 206 bones (babies have about 270)"
         },
         {
             question: "What is the speed of light in vacuum?",
             options: ["299,792 km/s", "199,792 km/s", "399,792 km/s", "99,792 km/s"],
-            correct: 0
+            correct: 0,
+            explanation: "Light travels at approximately 299,792 kilometers per second"
         },
         {
             question: "Which planet is known as the Red Planet?",
             options: ["Venus", "Jupiter", "Mars", "Saturn"],
-            correct: 2
+            correct: 2,
+            explanation: "Mars appears red due to iron oxide on its surface"
         },
         {
             question: "What is the powerhouse of the cell?",
             options: ["Nucleus", "Mitochondria", "Ribosome", "Chloroplast"],
-            correct: 1
+            correct: 1,
+            explanation: "Mitochondria produce ATP, the energy currency of cells"
         },
         {
             question: "What is the most abundant gas in Earth's atmosphere?",
             options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-            correct: 2
+            correct: 2,
+            explanation: "Nitrogen makes up about 78% of Earth's atmosphere"
         },
         {
             question: "What is the hardest natural substance on Earth?",
             options: ["Gold", "Iron", "Diamond", "Platinum"],
-            correct: 2
+            correct: 2,
+            explanation: "Diamond rates 10 on the Mohs hardness scale"
         },
         {
             question: "How long does it take for light from the Sun to reach Earth?",
             options: ["8 minutes", "8 seconds", "8 hours", "8 days"],
-            correct: 0
+            correct: 0,
+            explanation: "Sunlight takes about 8 minutes and 20 seconds to reach Earth"
         },
         {
             question: "What is the largest organ in the human body?",
             options: ["Heart", "Brain", "Liver", "Skin"],
-            correct: 3
+            correct: 3,
+            explanation: "The skin is the largest organ, covering about 20 square feet"
         }
     ],
     art: [
         {
             question: "Who painted the Mona Lisa?",
             options: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"],
-            correct: 1
+            correct: 1,
+            explanation: "Leonardo da Vinci painted this masterpiece in the early 1500s"
         },
         {
             question: "In which century did the Renaissance begin?",
             options: ["12th century", "13th century", "14th century", "15th century"],
-            correct: 2
+            correct: 2,
+            explanation: "The Renaissance began in Italy in the 14th century"
         },
         {
             question: "Who wrote 'Romeo and Juliet'?",
             options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
-            correct: 1
+            correct: 1,
+            explanation: "Shakespeare wrote this tragedy around 1594-1596"
         },
         {
             question: "What art movement is Salvador Dali associated with?",
             options: ["Impressionism", "Cubism", "Surrealism", "Expressionism"],
-            correct: 2
+            correct: 2,
+            explanation: "Dali was a leading figure in the Surrealist movement"
         },
         {
             question: "Who composed 'The Four Seasons'?",
             options: ["Bach", "Mozart", "Vivaldi", "Beethoven"],
-            correct: 2
+            correct: 2,
+            explanation: "Antonio Vivaldi composed this violin concerto in 1723"
         },
         {
             question: "Who painted 'The Starry Night'?",
             options: ["Claude Monet", "Vincent van Gogh", "Paul Cézanne", "Edgar Degas"],
-            correct: 1
+            correct: 1,
+            explanation: "Van Gogh painted this masterpiece in 1889"
         },
         {
-            question: "Which famous author wrote '1984'?",
+            question: "Which author wrote '1984'?",
             options: ["Aldous Huxley", "Ray Bradbury", "George Orwell", "Ernest Hemingway"],
-            correct: 2
+            correct: 2,
+            explanation: "George Orwell published this dystopian novel in 1949"
         },
         {
             question: "What is the art of beautiful handwriting called?",
             options: ["Typography", "Calligraphy", "Lithography", "Photography"],
-            correct: 1
+            correct: 1,
+            explanation: "Calligraphy is decorative handwriting or lettering"
         },
         {
             question: "Who sculpted 'David'?",
             options: ["Donatello", "Michelangelo", "Bernini", "Rodin"],
-            correct: 1
+            correct: 1,
+            explanation: "Michelangelo created this Renaissance masterpiece (1501-1504)"
         },
         {
             question: "Which playwright wrote 'Hamlet'?",
             options: ["Christopher Marlowe", "William Shakespeare", "Ben Jonson", "John Webster"],
-            correct: 1
+            correct: 1,
+            explanation: "Shakespeare wrote Hamlet around 1600"
         }
     ],
     general: [
         {
             question: "What is the capital of France?",
             options: ["London", "Berlin", "Paris", "Madrid"],
-            correct: 2
+            correct: 2,
+            explanation: "Paris has been France's capital since 987 AD"
         },
         {
             question: "How many continents are there?",
             options: ["5", "6", "7", "8"],
-            correct: 2
+            correct: 2,
+            explanation: "The seven continents are: Asia, Africa, North America, South America, Antarctica, Europe, and Australia"
         },
         {
             question: "What is the largest ocean on Earth?",
             options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
-            correct: 2
+            correct: 2,
+            explanation: "The Pacific Ocean covers about 63 million square miles"
         },
         {
             question: "In which year did World War II end?",
             options: ["1943", "1944", "1945", "1946"],
-            correct: 2
+            correct: 2,
+            explanation: "WWII ended in 1945 with Germany's surrender in May and Japan's in September"
         },
         {
             question: "What is the smallest country in the world?",
             options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
-            correct: 1
+            correct: 1,
+            explanation: "Vatican City is 0.17 square miles in area"
         },
         {
             question: "Which country is known as the Land of the Rising Sun?",
             options: ["China", "Thailand", "Japan", "South Korea"],
-            correct: 2
+            correct: 2,
+            explanation: "Japan is called this because of its eastern location"
         },
         {
             question: "What is the currency of the United Kingdom?",
             options: ["Euro", "Dollar", "Pound Sterling", "Franc"],
-            correct: 2
+            correct: 2,
+            explanation: "The British Pound Sterling (GBP) is one of the oldest currencies"
         },
         {
             question: "How many colors are in a rainbow?",
             options: ["5", "6", "7", "8"],
-            correct: 2
+            correct: 2,
+            explanation: "The seven colors are: Red, Orange, Yellow, Green, Blue, Indigo, Violet"
         },
         {
             question: "What is the tallest mountain in the world?",
             options: ["K2", "Kangchenjunga", "Mount Everest", "Lhotse"],
-            correct: 2
+            correct: 2,
+            explanation: "Mount Everest stands at 29,032 feet (8,849 meters)"
         },
         {
             question: "Which planet is closest to the Sun?",
             options: ["Venus", "Mars", "Mercury", "Earth"],
-            correct: 2
+            correct: 2,
+            explanation: "Mercury orbits at an average distance of 36 million miles from the Sun"
         }
     ],
     technology: [
         {
             question: "Who is known as the father of computers?",
             options: ["Alan Turing", "Charles Babbage", "Steve Jobs", "Bill Gates"],
-            correct: 1
+            correct: 1,
+            explanation: "Charles Babbage designed the first mechanical computer in the 1830s"
         },
         {
             question: "What does CPU stand for?",
             options: ["Central Processing Unit", "Computer Personal Unit", "Central Processor Utility", "Core Processing Unit"],
-            correct: 0
+            correct: 0,
+            explanation: "CPU is the primary component that processes instructions"
         },
         {
             question: "In what year was the first iPhone released?",
             options: ["2005", "2006", "2007", "2008"],
-            correct: 2
+            correct: 2,
+            explanation: "Steve Jobs unveiled the iPhone on January 9, 2007"
         },
         {
             question: "What does HTML stand for?",
             options: ["Hyper Text Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
-            correct: 0
+            correct: 0,
+            explanation: "HTML is the standard markup language for web pages"
         },
         {
             question: "Who founded Microsoft?",
             options: ["Steve Jobs", "Bill Gates", "Mark Zuckerberg", "Elon Musk"],
-            correct: 1
+            correct: 1,
+            explanation: "Bill Gates and Paul Allen founded Microsoft in 1975"
         },
         {
-            question: "What does WWW stand for in a website URL?",
+            question: "What does WWW stand for?",
             options: ["World Wide Web", "Web World Wide", "Wide World Web", "World Web Wide"],
-            correct: 0
+            correct: 0,
+            explanation: "Tim Berners-Lee invented the World Wide Web in 1989"
         },
         {
-            question: "What programming language is known as the 'language of the web'?",
+            question: "What language is known as the 'language of the web'?",
             options: ["Python", "Java", "JavaScript", "C++"],
-            correct: 2
+            correct: 2,
+            explanation: "JavaScript enables interactive web pages and runs in browsers"
         },
         {
             question: "What does USB stand for?",
             options: ["Universal Serial Bus", "United Serial Bus", "Universal System Bus", "United System Bus"],
-            correct: 0
+            correct: 0,
+            explanation: "USB is an industry standard for cables and connectors"
         },
         {
-            question: "Who is the founder of Facebook?",
+            question: "Who founded Facebook?",
             options: ["Jack Dorsey", "Mark Zuckerberg", "Elon Musk", "Jeff Bezos"],
-            correct: 1
+            correct: 1,
+            explanation: "Mark Zuckerberg launched Facebook in 2004"
         },
         {
             question: "What does AI stand for?",
             options: ["Automated Intelligence", "Artificial Intelligence", "Advanced Intelligence", "Algorithmic Intelligence"],
-            correct: 1
+            correct: 1,
+            explanation: "AI refers to machines simulating human intelligence"
         }
     ]
 };
 
 // ============================================
-// 2. USER DATA MANAGEMENT (LocalStorage)
+// 2. APPLICATION CONFIGURATION
 // ============================================
-
-/**
- * Get user data from localStorage or return default values
- */
-const getUserData = () => {
-    const defaultData = {
-        name: "Guest User",
-        email: "guest@quizapp.com",
-        username: "guest_user",
-        bio: "",
-        points: 230,
-        rank: 1250,
-        totalQuizzes: 0,
-        averageScore: 0,
-        currentStreak: 0,
-        totalBadges: 0,
-        bestScore: 0,
-        preferences: {
-            soundEffects: true,
-            notifications: true,
-            darkMode: false
-        },
-        quizHistory: [],
-        categoryStats: {
-            science: { attempted: 0, correct: 0, total: 0 },
-            art: { attempted: 0, correct: 0, total: 0 },
-            general: { attempted: 0, correct: 0, total: 0 },
-            technology: { attempted: 0, correct: 0, total: 0 }
-        }
-    };
-    
-    try {
-        const stored = localStorage.getItem('quizAppUser');
-        if (stored) {
-            const parsedData = JSON.parse(stored);
-            // Merge with default data to ensure all properties exist
-            return { ...defaultData, ...parsedData };
-        }
-        return defaultData;
-    } catch (error) {
-        console.error('Error loading user data:', error);
-        return defaultData;
-    }
+const CONFIG = {
+    TIME_PER_QUESTION: 30, // seconds
+    POINTS_PER_CORRECT: 10,
+    PASSING_SCORE: 70, // percentage
+    MAX_QUIZ_HISTORY: 50,
+    AUTO_SAVE_INTERVAL: 5000, // ms
+    ANIMATION_DURATION: 300 // ms
 };
 
-/**
- * Save user data to localStorage
- */
-const saveUserData = (data) => {
-    try {
-        localStorage.setItem('quizAppUser', JSON.stringify(data));
-        console.log('User data saved successfully');
-    } catch (error) {
-        console.error('Error saving user data:', error);
+// ============================================
+// 3. USER DATA MANAGEMENT
+// ============================================
+class UserDataManager {
+    constructor() {
+        this.defaultData = {
+            name: "Guest User",
+            email: "guest@quizapp.com",
+            username: "guest_user",
+            bio: "",
+            points: 230,
+            rank: 1250,
+            totalQuizzes: 0,
+            averageScore: 0,
+            currentStreak: 0,
+            totalBadges: 0,
+            bestScore: 0,
+            preferences: {
+                soundEffects: true,
+                notifications: true,
+                darkMode: false
+            },
+            quizHistory: [],
+            categoryStats: {
+                math: { attempted: 0, correct: 0, totalQuestions: 0, bestScore: 0 },
+                science: { attempted: 0, correct: 0, totalQuestions: 0, bestScore: 0 },
+                art: { attempted: 0, correct: 0, totalQuestions: 0, bestScore: 0 },
+                general: { attempted: 0, correct: 0, totalQuestions: 0, bestScore: 0 },
+                technology: { attempted: 0, correct: 0, totalQuestions: 0, bestScore: 0 }
+            },
+            lastPlayed: null
+        };
     }
-};
 
-// Initialize user data
-let userData = getUserData();
-
-// ============================================
-// 3. APPLICATION STATE VARIABLES
-// ============================================
-let currentCategory = '';
-let currentQuestionIndex = 0;
-let selectedAnswer = null;
-let score = 0;
-let totalQuestions = 0;
-let answeredQuestions = 0;
-let timer = null;
-let timeRemaining = 180;
-let isAnswerSubmitted = false;
-let quizStartTime = null;
-
-// ============================================
-// 4. DOM ELEMENTS
-// ============================================
-const homeScreen = document.getElementById('homeScreen');
-const quizScreen = document.getElementById('quizScreen');
-const resultsScreen = document.getElementById('resultsScreen');
-const sidebar = document.getElementById('sidebar');
-const sidebarOverlay = document.getElementById('sidebarOverlay');
-const profileModal = document.getElementById('profileModal');
-const categoryCards = document.querySelectorAll('.category-card');
-const closeButtons = document.querySelectorAll('.close-btn');
-const submitBtn = document.getElementById('submitBtn');
-const optionsContainer = document.getElementById('optionsContainer');
-const questionText = document.getElementById('questionText');
-const quizCategory = document.getElementById('quizCategory');
-const currentQuestionEl = document.getElementById('currentQuestion');
-const timeRemainingEl = document.getElementById('timeRemaining');
-const scorePercentageEl = document.getElementById('scorePercentage');
-const totalQuestionsEl = document.getElementById('totalQuestions');
-const correctAnswersEl = document.getElementById('correctAnswers');
-
-// ============================================
-// 5. INITIALIZATION
-// ============================================
-
-/**
- * Initialize the application
- */
-function init() {
-    console.log('%c Quiz App Initializing... ', 'background: #ff9a56; color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
-    
-    setupEventListeners();
-    updateHomeStats();
-    updateSidebarUserInfo();
-    updateProfileData();
-    
-    console.log('%c Quiz App Loaded Successfully! ', 'background: #4caf50; color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
-    console.log('💡 Tip: You can use A, B, C, D keys to select answers and Enter to submit!');
-    console.log('💡 Press Escape to close modals and sidebar!');
-}
-
-// ============================================
-// 6. EVENT LISTENERS SETUP
-// ============================================
-
-/**
- * Setup all event listeners
- */
-function setupEventListeners() {
-    // === SIDEBAR CONTROLS ===
-    const menuBtn = document.getElementById('menuBtn');
-    const closeSidebarBtn = document.getElementById('closeSidebar');
-    
-    if (menuBtn) menuBtn.addEventListener('click', openSidebar);
-    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeSidebar);
-    if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
-    
-    // === PROFILE CONTROLS ===
-    const profileBtn = document.getElementById('profileBtn');
-    const closeProfileBtn = document.getElementById('closeProfile');
-    const saveProfileBtn = document.getElementById('saveProfileBtn');
-    const cancelProfileBtn = document.getElementById('cancelProfileBtn');
-    const changeAvatarBtn = document.getElementById('changeAvatarBtn');
-    
-    if (profileBtn) profileBtn.addEventListener('click', openProfile);
-    if (closeProfileBtn) closeProfileBtn.addEventListener('click', closeProfile);
-    if (saveProfileBtn) saveProfileBtn.addEventListener('click', saveProfile);
-    if (cancelProfileBtn) cancelProfileBtn.addEventListener('click', closeProfile);
-    if (changeAvatarBtn) changeAvatarBtn.addEventListener('click', handleAvatarChange);
-    
-    // === SIDEBAR NAVIGATION ===
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleNavigation(item);
-        });
-    });
-    
-    // === OTHER SIDEBAR BUTTONS ===
-    const logoutBtn = document.getElementById('logoutBtn');
-    const leaderboardBtn = document.getElementById('leaderboardBtn');
-    const achievementsBtn = document.getElementById('achievementsBtn');
-    const historyBtn = document.getElementById('historyBtn');
-    const settingsBtn = document.getElementById('settingsBtn');
-    const helpBtn = document.getElementById('helpBtn');
-    
-    if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
-    if (leaderboardBtn) leaderboardBtn.addEventListener('click', () => showComingSoon('Leaderboard'));
-    if (achievementsBtn) achievementsBtn.addEventListener('click', () => showComingSoon('Achievements'));
-    if (historyBtn) historyBtn.addEventListener('click', () => showComingSoon('Quiz History'));
-    if (settingsBtn) settingsBtn.addEventListener('click', () => showComingSoon('Settings'));
-    if (helpBtn) helpBtn.addEventListener('click', () => showComingSoon('Help & Support'));
-    
-    // === CATEGORY SELECTION ===
-    categoryCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const category = card.getAttribute('data-category');
-            startQuiz(category);
-        });
-    });
-
-    // === QUIZ CONTROLS ===
-    closeButtons.forEach(btn => {
-        btn.addEventListener('click', handleCloseQuiz);
-    });
-
-    if (submitBtn) submitBtn.addEventListener('click', handleSubmit);
-
-    // === SHARE BUTTONS ===
-    document.querySelectorAll('.share-icon').forEach(icon => {
-        icon.addEventListener('click', handleShare);
-    });
-
-    // === UPGRADE BUTTON ===
-    const upgradeBtn = document.querySelector('.upgrade-btn');
-    if (upgradeBtn) upgradeBtn.addEventListener('click', handleUpgrade);
-    
-    // === PREFERENCE CHECKBOXES ===
-    const soundEffectsCheckbox = document.getElementById('soundEffects');
-    const notificationsCheckbox = document.getElementById('notifications');
-    const darkModeCheckbox = document.getElementById('darkMode');
-    
-    if (soundEffectsCheckbox) {
-        soundEffectsCheckbox.addEventListener('change', (e) => {
-            userData.preferences.soundEffects = e.target.checked;
-        });
+    load() {
+        try {
+            const stored = localStorage.getItem('quizAppUser');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                return { ...this.defaultData, ...parsed };
+            }
+        } catch (error) {
+            console.error('Error loading user data:', error);
+        }
+        return { ...this.defaultData };
     }
-    
-    if (notificationsCheckbox) {
-        notificationsCheckbox.addEventListener('change', (e) => {
-            userData.preferences.notifications = e.target.checked;
-        });
+
+    save(data) {
+        try {
+            localStorage.setItem('quizAppUser', JSON.stringify(data));
+            return true;
+        } catch (error) {
+            console.error('Error saving user data:', error);
+            return false;
+        }
     }
-    
-    if (darkModeCheckbox) {
-        darkModeCheckbox.addEventListener('change', (e) => {
-            userData.preferences.darkMode = e.target.checked;
-            toggleDarkMode(e.target.checked);
-        });
-    }
-}
 
-// ============================================
-// 7. SIDEBAR FUNCTIONS
-// ============================================
-
-/**
- * Open the sidebar menu
- */
-function openSidebar() {
-    if (sidebar) sidebar.classList.add('active');
-    if (sidebarOverlay) sidebarOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-/**
- * Close the sidebar menu
- */
-function closeSidebar() {
-    if (sidebar) sidebar.classList.remove('active');
-    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-/**
- * Update sidebar user information
- */
-function updateSidebarUserInfo() {
-    const sidebarUserName = document.getElementById('sidebarUserName');
-    const sidebarUserEmail = document.getElementById('sidebarUserEmail');
-    
-    if (sidebarUserName) sidebarUserName.textContent = userData.name;
-    if (sidebarUserEmail) sidebarUserEmail.textContent = userData.email;
-}
-
-/**
- * Handle navigation item clicks
- */
-function handleNavigation(navItem) {
-    const screen = navItem.getAttribute('data-screen');
-    
-    // Update active state
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    navItem.classList.add('active');
-    
-    closeSidebar();
-    
-    if (screen === 'home') {
-        showScreen('home');
-    } else if (screen === 'profile') {
-        openProfile();
-    }
-}
-
-// ============================================
-// 8. PROFILE FUNCTIONS
-// ============================================
-
-/**
- * Open the profile modal
- */
-function openProfile() {
-    if (profileModal) {
-        profileModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        updateProfileData();
-    }
-}
-
-/**
- * Close the profile modal
- */
-function closeProfile() {
-    if (profileModal) {
-        profileModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-/**
- * Update profile data in the modal
- */
-function updateProfileData() {
-    const profileName = document.getElementById('profileName');
-    const profileEmail = document.getElementById('profileEmail');
-    const profileUsername = document.getElementById('profileUsername');
-    const profileBio = document.getElementById('profileBio');
-    const totalQuizzesEl = document.getElementById('totalQuizzes');
-    const averageScoreEl = document.getElementById('averageScore');
-    const currentStreakEl = document.getElementById('currentStreak');
-    const totalBadgesEl = document.getElementById('totalBadges');
-    const soundEffectsCheckbox = document.getElementById('soundEffects');
-    const notificationsCheckbox = document.getElementById('notifications');
-    const darkModeCheckbox = document.getElementById('darkMode');
-    
-    if (profileName) profileName.value = userData.name;
-    if (profileEmail) profileEmail.value = userData.email;
-    if (profileUsername) profileUsername.value = userData.username;
-    if (profileBio) profileBio.value = userData.bio;
-    
-    if (totalQuizzesEl) totalQuizzesEl.textContent = userData.totalQuizzes;
-    if (averageScoreEl) averageScoreEl.textContent = userData.averageScore + '%';
-    if (currentStreakEl) currentStreakEl.textContent = userData.currentStreak;
-    if (totalBadgesEl) totalBadgesEl.textContent = userData.totalBadges;
-    
-    if (soundEffectsCheckbox) soundEffectsCheckbox.checked = userData.preferences.soundEffects;
-    if (notificationsCheckbox) notificationsCheckbox.checked = userData.preferences.notifications;
-    if (darkModeCheckbox) darkModeCheckbox.checked = userData.preferences.darkMode;
-}
-
-/**
- * Save profile changes
- */
-function saveProfile() {
-    const profileName = document.getElementById('profileName');
-    const profileEmail = document.getElementById('profileEmail');
-    const profileUsername = document.getElementById('profileUsername');
-    const profileBio = document.getElementById('profileBio');
-    
-    // Validate inputs
-    if (profileName && !profileName.value.trim()) {
-        showNotification('Please enter your name', 'error');
-        return;
-    }
-    
-    if (profileEmail && !profileEmail.value.trim()) {
-        showNotification('Please enter your email', 'error');
-        return;
-    }
-    
-    // Update user data
-    if (profileName) userData.name = profileName.value.trim();
-    if (profileEmail) userData.email = profileEmail.value.trim();
-    if (profileUsername) userData.username = profileUsername.value.trim();
-    if (profileBio) userData.bio = profileBio.value.trim();
-    
-    // Save to localStorage
-    saveUserData(userData);
-    
-    // Update UI
-    updateSidebarUserInfo();
-    updateHomeStats();
-    
-    // Close modal
-    closeProfile();
-    
-    // Show success message
-    showNotification('Profile updated successfully!', 'success');
-}
-
-/**
- * Handle avatar change
- */
-function handleAvatarChange() {
-    showNotification('Avatar change feature - Connect to your avatar selection system here!', 'info');
-}
-
-/**
- * Handle logout
- */
-function handleLogout() {
-    if (confirm('Are you sure you want to logout?')) {
-        // Reset to default data
+    reset() {
         localStorage.removeItem('quizAppUser');
-        userData = getUserData();
-        updateSidebarUserInfo();
-        updateProfileData();
-        updateHomeStats();
-        closeSidebar();
-        showNotification('Logged out successfully!', 'success');
+        return { ...this.defaultData };
     }
 }
+
+const userDataManager = new UserDataManager();
+let userData = userDataManager.load();
 
 // ============================================
-// 9. SCREEN MANAGEMENT
+// 4. QUIZ STATE MANAGER
 // ============================================
+class QuizState {
+    constructor() {
+        this.reset();
+    }
 
-/**
- * Show specific screen
- */
-function showScreen(screen) {
-    if (homeScreen) homeScreen.classList.remove('active');
-    if (quizScreen) quizScreen.classList.remove('active');
-    if (resultsScreen) resultsScreen.classList.remove('active');
+    reset() {
+        this.category = '';
+        this.questions = [];
+        this.currentIndex = 0;
+        this.selectedAnswer = null;
+        this.score = 0;
+        this.isSubmitted = false;
+        this.timeRemaining = 0;
+        this.timer = null;
+        this.startTime = null;
+    }
 
-    switch(screen) {
-        case 'home':
-            if (homeScreen) homeScreen.classList.add('active');
-            break;
-        case 'quiz':
-            if (quizScreen) quizScreen.classList.add('active');
-            break;
-        case 'results':
-            if (resultsScreen) resultsScreen.classList.add('active');
-            break;
+    init(category) {
+        this.reset();
+        this.category = category;
+        this.questions = [...quizData[category]];
+        this.timeRemaining = this.questions.length * CONFIG.TIME_PER_QUESTION;
+        this.startTime = Date.now();
+    }
+
+    get totalQuestions() {
+        return this.questions.length;
+    }
+
+    get currentQuestion() {
+        return this.questions[this.currentIndex];
+    }
+
+    get isLastQuestion() {
+        return this.currentIndex >= this.totalQuestions - 1;
+    }
+
+    get percentageScore() {
+        return Math.round((this.score / this.totalQuestions) * 100);
+    }
+
+    get timeTaken() {
+        return this.startTime ? Math.floor((Date.now() - this.startTime) / 1000) : 0;
+    }
+
+    nextQuestion() {
+        this.currentIndex++;
+        this.selectedAnswer = null;
+        this.isSubmitted = false;
     }
 }
+
+const quizState = new QuizState();
 
 // ============================================
-// 10. QUIZ MANAGEMENT
+// 5. DOM ELEMENT REFERENCES
 // ============================================
+const DOM = {
+    // Screens
+    homeScreen: document.getElementById('homeScreen'),
+    quizScreen: document.getElementById('quizScreen'),
+    resultsScreen: document.getElementById('resultsScreen'),
+    
+    // Sidebar
+    sidebar: document.getElementById('sidebar'),
+    sidebarOverlay: document.getElementById('sidebarOverlay'),
+    menuBtn: document.getElementById('menuBtn'),
+    closeSidebar: document.getElementById('closeSidebar'),
+    
+    // Profile
+    profileModal: document.getElementById('profileModal'),
+    profileBtn: document.getElementById('profileBtn'),
+    closeProfile: document.getElementById('closeProfile'),
+    
+    // Quiz elements
+    categoryCards: document.querySelectorAll('.category-card'),
+    questionText: document.getElementById('questionText'),
+    optionsContainer: document.getElementById('optionsContainer'),
+    submitBtn: document.getElementById('submitBtn'),
+    currentQuestionEl: document.getElementById('currentQuestion'),
+    totalQuestionsDisplay: document.getElementById('totalQuestionsDisplay'),
+    timeRemainingEl: document.getElementById('timeRemaining'),
+    quizCategory: document.getElementById('quizCategory'),
+    quizCategoryIcon: document.getElementById('quizCategoryIcon'),
+    progressFill: document.getElementById('progressFill'),
+    
+    // Results
+    scorePercentageEl: document.getElementById('scorePercentage'),
+    totalQuestionsEl: document.getElementById('totalQuestions'),
+    correctAnswersEl: document.getElementById('correctAnswers'),
+    performanceBadge: document.getElementById('performanceBadge'),
+    resultsTitle: document.getElementById('resultsTitle'),
+    timeTaken: document.getElementById('timeTaken'),
+    accuracyRate: document.getElementById('accuracyRate'),
+    pointsEarned: document.getElementById('pointsEarned'),
+    
+    // Home stats
+    homePoints: document.getElementById('homePoints'),
+    homeRank: document.getElementById('homeRank'),
+    
+    // Profile fields
+    profileName: document.getElementById('profileName'),
+    profileEmail: document.getElementById('profileEmail'),
+    profileUsername: document.getElementById('profileUsername'),
+    profileBio: document.getElementById('profileBio'),
+    totalQuizzes: document.getElementById('totalQuizzes'),
+    averageScore: document.getElementById('averageScore'),
+    currentStreak: document.getElementById('currentStreak'),
+    totalBadges: document.getElementById('totalBadges'),
+    
+    // Buttons
+    saveProfileBtn: document.getElementById('saveProfileBtn'),
+    cancelProfileBtn: document.getElementById('cancelProfileBtn'),
+    logoutBtn: document.getElementById('logoutBtn'),
+    retryQuizBtn: document.getElementById('retryQuizBtn'),
+    homeBtn: document.getElementById('homeBtn'),
+    upgradeBtn: document.getElementById('upgradeBtn'),
+    closeButtons: document.querySelectorAll('.close-btn'),
+    shareIcons: document.querySelectorAll('.share-icon'),
+    
+    // Nav items
+    navItems: document.querySelectorAll('.nav-item'),
+    leaderboardBtn: document.getElementById('leaderboardBtn'),
+    historyBtn: document.getElementById('historyBtn'),
+    achievementsBtn: document.getElementById('achievementsBtn'),
+    settingsBtn: document.getElementById('settingsBtn'),
+    
+    // Loading
+    loadingOverlay: document.getElementById('loadingOverlay')
+};
 
-/**
- * Start a quiz for the selected category
- */
-function startQuiz(category) {
-    // Validate category
-    if (!quizData[category]) {
-        showNotification('Invalid category selected', 'error');
-        return;
-    }
-    
-    // Reset quiz state
-    currentCategory = category;
-    currentQuestionIndex = 0;
-    score = 0;
-    selectedAnswer = null;
-    answeredQuestions = 0;
-    isAnswerSubmitted = false;
-    quizStartTime = Date.now();
-    
-    // Set up quiz parameters
-    const questions = quizData[category];
-    totalQuestions = questions.length;
-    timeRemaining = totalQuestions * 30; // 30 seconds per question
-    
-    // Set category display name
-    const categoryNames = {
-        science: 'Science and Nature',
-        art: 'Art and Literature',
-        general: 'General Knowledge',
-        technology: 'Technology'
-    };
-    
-    if (quizCategory) {
-        quizCategory.textContent = categoryNames[category] || category;
-    }
-    
-    // Show quiz screen and start
-    showScreen('quiz');
-    loadQuestion();
-    startTimer();
-    
-    console.log(`Quiz started: ${category} - ${totalQuestions} questions`);
-}
+// ============================================
+// 6. UTILITY FUNCTIONS
+// ============================================
+const Utils = {
+    formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    },
 
-/**
- * Stop the current quiz
- */
-function stopQuiz() {
-    if (timer) {
-        clearInterval(timer);
-        timer = null;
-    }
-    resetQuizState();
-}
-
-/**
- * Reset quiz state variables
- */
-function resetQuizState() {
-    currentCategory = '';
-    currentQuestionIndex = 0;
-    selectedAnswer = null;
-    score = 0;
-    answeredQuestions = 0;
-    timeRemaining = 180;
-    isAnswerSubmitted = false;
-    quizStartTime = null;
-    if (submitBtn) submitBtn.textContent = 'SUBMIT';
-}
-
-/**
- * Handle quiz close button
- */
-function handleCloseQuiz() {
-    if (quizScreen && quizScreen.classList.contains('active')) {
-        if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
-            stopQuiz();
-            showScreen('home');
+    shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
-    } else {
-        showScreen('home');
-    }
-}
+        return shuffled;
+    },
 
-// ============================================
-// 11. QUESTION MANAGEMENT
-// ============================================
+    getPerformanceBadge(percentage) {
+        if (percentage === 100) return { icon: '🏆', text: 'Perfect!', class: 'perfect' };
+        if (percentage >= 90) return { icon: '⭐', text: 'Excellent', class: 'excellent' };
+        if (percentage >= 80) return { icon: '👍', text: 'Great', class: 'great' };
+        if (percentage >= 70) return { icon: '👌', text: 'Good', class: 'good' };
+        if (percentage >= 60) return { icon: '✓', text: 'Pass', class: 'pass' };
+        return { icon: '📚', text: 'Keep Learning', class: 'retry' };
+    },
 
-/**
- * Load current question
- */
-function loadQuestion() {
-    const questions = quizData[currentCategory];
-    
-    if (!questions || currentQuestionIndex >= questions.length) {
-        showResults();
-        return;
-    }
-    
-    const question = questions[currentQuestionIndex];
-    
-    // Reset state for new question
-    selectedAnswer = null;
-    isAnswerSubmitted = false;
-    if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'SUBMIT';
-    }
-    
-    // Update question display
-    if (questionText) {
-        questionText.textContent = `${currentQuestionIndex + 1}. ${question.question}`;
-    }
-    if (currentQuestionEl) {
-        currentQuestionEl.textContent = currentQuestionIndex + 1;
-    }
-    
-    // Clear previous options
-    if (optionsContainer) {
-        optionsContainer.innerHTML = '';
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        `;
         
-        // Create option elements
-        const optionLabels = ['A', 'B', 'C', 'D'];
-        question.options.forEach((option, index) => {
-            const optionEl = document.createElement('div');
-            optionEl.className = 'option';
-            optionEl.setAttribute('data-index', index);
-            optionEl.innerHTML = `
-                <div class="option-label">${optionLabels[index]}</div>
-                <div class="option-text">${option}</div>
-            `;
+        const colors = {
+            success: 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)',
+            error: 'linear-gradient(135deg, #f44336 0%, #e53935 100%)',
+            warning: 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)',
+            info: 'linear-gradient(135deg, #ff9a56 0%, #ff7043 100%)'
+        };
+        
+        notification.style.background = colors[type] || colors.info;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    },
+
+    calculateRank(points) {
+        return Math.max(1, 10000 - Math.floor(points / 10));
+    }
+};
+
+// ============================================
+// 7. SCREEN MANAGEMENT
+// ============================================
+const ScreenManager = {
+    show(screenName) {
+        [DOM.homeScreen, DOM.quizScreen, DOM.resultsScreen].forEach(screen => {
+            if (screen) screen.classList.remove('active');
+        });
+
+        const screenMap = {
+            'home': DOM.homeScreen,
+            'quiz': DOM.quizScreen,
+            'results': DOM.resultsScreen
+        };
+
+        const screen = screenMap[screenName];
+        if (screen) {
+            screen.classList.add('active');
+            if (screenName === 'quiz') {
+                this.updateProgressBar();
+            }
+        }
+    },
+
+    updateProgressBar() {
+        if (DOM.progressFill && quizState.totalQuestions > 0) {
+            const progress = ((quizState.currentIndex + 1) / quizState.totalQuestions) * 100;
+            DOM.progressFill.style.width = `${progress}%`;
+        }
+    }
+};
+
+// ============================================
+// 8. SIDEBAR MANAGER
+// ============================================
+const SidebarManager = {
+    open() {
+        if (DOM.sidebar) DOM.sidebar.classList.add('active');
+        if (DOM.sidebarOverlay) DOM.sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    },
+
+    close() {
+        if (DOM.sidebar) DOM.sidebar.classList.remove('active');
+        if (DOM.sidebarOverlay) DOM.sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    },
+
+    updateUserInfo() {
+        const nameEl = document.getElementById('sidebarUserName');
+        const emailEl = document.getElementById('sidebarUserEmail');
+        if (nameEl) nameEl.textContent = userData.name;
+        if (emailEl) emailEl.textContent = userData.email;
+    }
+};
+
+// ============================================
+// 9. PROFILE MANAGER
+// ============================================
+const ProfileManager = {
+    open() {
+        if (DOM.profileModal) {
+            DOM.profileModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            this.updateFields();
+        }
+    },
+
+    close() {
+        if (DOM.profileModal) {
+            DOM.profileModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    },
+
+    updateFields() {
+        if (DOM.profileName) DOM.profileName.value = userData.name;
+        if (DOM.profileEmail) DOM.profileEmail.value = userData.email;
+        if (DOM.profileUsername) DOM.profileUsername.value = userData.username;
+        if (DOM.profileBio) DOM.profileBio.value = userData.bio;
+        
+        if (DOM.totalQuizzes) DOM.totalQuizzes.textContent = userData.totalQuizzes;
+        if (DOM.averageScore) DOM.averageScore.textContent = userData.averageScore + '%';
+        if (DOM.currentStreak) DOM.currentStreak.textContent = userData.currentStreak;
+        if (DOM.totalBadges) DOM.totalBadges.textContent = userData.totalBadges;
+    },
+
+    save() {
+        if (!DOM.profileName.value.trim()) {
+            Utils.showNotification('Please enter your name', 'error');
+            return;
+        }
+
+        userData.name = DOM.profileName.value.trim();
+        userData.email = DOM.profileEmail.value.trim();
+        userData.username = DOM.profileUsername.value.trim();
+        userData.bio = DOM.profileBio.value.trim();
+
+        if (userDataManager.save(userData)) {
+            SidebarManager.updateUserInfo();
+            HomeManager.updateStats();
+            this.close();
+            Utils.showNotification('Profile updated successfully!', 'success');
+        } else {
+            Utils.showNotification('Failed to save profile', 'error');
+        }
+    }
+};
+
+// ============================================
+// 10. HOME MANAGER
+// ============================================
+const HomeManager = {
+    updateStats() {
+        if (DOM.homePoints) DOM.homePoints.textContent = userData.points;
+        if (DOM.homeRank) {
+            const rank = Utils.calculateRank(userData.points);
+            DOM.homeRank.innerHTML = `${rank}<span class="rank-suffix">₂</span>`;
+        }
+    }
+};
+
+// ============================================
+// 11. QUIZ MANAGER
+// ============================================
+const QuizManager = {
+    start(category) {
+        if (!quizData[category]) {
+            Utils.showNotification('Invalid category', 'error');
+            return;
+        }
+
+        quizState.init(category);
+        
+        const categoryNames = {
+            math: { name: 'Statistics & Math', icon: '📊' },
+            science: { name: 'Science & Nature', icon: '🔬' },
+            art: { name: 'Art and Literature', icon: '🎨' },
+            general: { name: 'General Knowledge', icon: '📦' },
+            technology: { name: 'Technology', icon: '💡' }
+        };
+
+        const categoryInfo = categoryNames[category];
+        if (DOM.quizCategory) DOM.quizCategory.textContent = categoryInfo.name;
+        if (DOM.quizCategoryIcon) DOM.quizCategoryIcon.textContent = categoryInfo.icon;
+        if (DOM.totalQuestionsDisplay) DOM.totalQuestionsDisplay.textContent = quizState.totalQuestions;
+
+        ScreenManager.show('quiz');
+        this.loadQuestion();
+        this.startTimer();
+    },
+
+    loadQuestion() {
+        const question = quizState.currentQuestion;
+        if (!question) {
+            this.showResults();
+            return;
+        }
+
+        quizState.selectedAnswer = null;
+        quizState.isSubmitted = false;
+
+        if (DOM.submitBtn) {
+            DOM.submitBtn.disabled = true;
+            DOM.submitBtn.textContent = 'SUBMIT';
+        }
+
+        if (DOM.questionText) {
+            DOM.questionText.textContent = `${quizState.currentIndex + 1}. ${question.question}`;
+        }
+
+        if (DOM.currentQuestionEl) {
+            DOM.currentQuestionEl.textContent = quizState.currentIndex + 1;
+        }
+
+        if (DOM.optionsContainer) {
+            DOM.optionsContainer.innerHTML = '';
+            const labels = ['A', 'B', 'C', 'D'];
             
-            optionEl.addEventListener('click', () => {
-                if (!isAnswerSubmitted) {
-                    selectOption(index);
+            question.options.forEach((option, index) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'option';
+                optionEl.setAttribute('data-index', index);
+                optionEl.innerHTML = `
+                    <div class="option-label">${labels[index]}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                optionEl.addEventListener('click', () => {
+                    if (!quizState.isSubmitted) {
+                        this.selectOption(index);
+                    }
+                });
+                
+                DOM.optionsContainer.appendChild(optionEl);
+            });
+        }
+
+        ScreenManager.updateProgressBar();
+    },
+
+    selectOption(index) {
+        if (quizState.isSubmitted) return;
+
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+
+        const options = document.querySelectorAll('.option');
+        if (options[index]) {
+            options[index].classList.add('selected');
+            quizState.selectedAnswer = index;
+            if (DOM.submitBtn) DOM.submitBtn.disabled = false;
+        }
+    },
+
+    submit() {
+        if (quizState.isSubmitted) {
+            this.nextQuestion();
+            return;
+        }
+
+        if (quizState.selectedAnswer === null) return;
+
+        quizState.isSubmitted = true;
+        const question = quizState.currentQuestion;
+        const options = document.querySelectorAll('.option');
+
+        options.forEach(opt => {
+            opt.style.pointerEvents = 'none';
+        });
+
+        options.forEach((opt, index) => {
+            if (index === question.correct) {
+                opt.classList.add('correct');
+                opt.classList.remove('selected');
+            } else if (index === quizState.selectedAnswer && quizState.selectedAnswer !== question.correct) {
+                opt.classList.add('wrong');
+                opt.classList.remove('selected');
+            }
+        });
+
+        if (quizState.selectedAnswer === question.correct) {
+            quizState.score++;
+        }
+
+        // Update category stats
+        const categoryStats = userData.categoryStats[quizState.category];
+        if (categoryStats) {
+            categoryStats.attempted++;
+            categoryStats.totalQuestions++;
+            if (quizState.selectedAnswer === question.correct) {
+                categoryStats.correct++;
+            }
+        }
+
+        if (DOM.submitBtn) {
+            DOM.submitBtn.textContent = quizState.isLastQuestion ? 'FINISH' : 'NEXT';
+            DOM.submitBtn.disabled = false;
+        }
+    },
+
+    nextQuestion() {
+        if (quizState.isLastQuestion) {
+            this.showResults();
+        } else {
+            quizState.nextQuestion();
+            this.loadQuestion();
+        }
+    },
+
+    startTimer() {
+        this.updateTimerDisplay();
+
+        quizState.timer = setInterval(() => {
+            quizState.timeRemaining--;
+            this.updateTimerDisplay();
+
+            if (quizState.timeRemaining <= 0) {
+                clearInterval(quizState.timer);
+                quizState.timer = null;
+                this.showResults();
+            }
+        }, 1000);
+    },
+
+    updateTimerDisplay() {
+        if (!DOM.timeRemainingEl) return;
+
+        DOM.timeRemainingEl.textContent = Utils.formatTime(quizState.timeRemaining);
+
+        if (quizState.timeRemaining <= 30) {
+            DOM.timeRemainingEl.style.color = '#ff4444';
+        } else {
+            DOM.timeRemainingEl.style.color = 'rgba(255, 255, 255, 0.7)';
+        }
+    },
+
+    showResults() {
+        if (quizState.timer) {
+            clearInterval(quizState.timer);
+            quizState.timer = null;
+        }
+
+        const percentage = quizState.percentageScore;
+        const timeTaken = quizState.timeTaken;
+        const pointsEarned = quizState.score * CONFIG.POINTS_PER_CORRECT;
+
+        // Update results display
+        if (DOM.scorePercentageEl) DOM.scorePercentageEl.textContent = `${percentage}%`;
+        if (DOM.totalQuestionsEl) DOM.totalQuestionsEl.textContent = quizState.totalQuestions;
+        if (DOM.correctAnswersEl) DOM.correctAnswersEl.textContent = quizState.score;
+        if (DOM.timeTaken) DOM.timeTaken.textContent = Utils.formatTime(timeTaken);
+        if (DOM.accuracyRate) DOM.accuracyRate.textContent = `${percentage}%`;
+        if (DOM.pointsEarned) DOM.pointsEarned.textContent = `+${pointsEarned}`;
+
+        // Performance badge
+        const badge = Utils.getPerformanceBadge(percentage);
+        if (DOM.performanceBadge) {
+            DOM.performanceBadge.innerHTML = `
+                <span class="badge-icon">${badge.icon}</span>
+                <span class="badge-text">${badge.text}</span>
+            `;
+            DOM.performanceBadge.className = `performance-badge ${badge.class}`;
+        }
+
+        // Results title
+        if (DOM.resultsTitle) {
+            DOM.resultsTitle.textContent = percentage >= 70 ? 'Congratulations!' : 'Good Effort!';
+        }
+
+        // Update user statistics
+        this.updateUserStats(percentage, pointsEarned, timeTaken);
+
+        // Save and update UI
+        userDataManager.save(userData);
+        HomeManager.updateStats();
+        ProfileManager.updateFields();
+
+        ScreenManager.show('results');
+    },
+
+    updateUserStats(percentage, pointsEarned, timeTaken) {
+        userData.totalQuizzes++;
+        userData.points += pointsEarned;
+
+        // Update best score
+        if (percentage > userData.bestScore) {
+            userData.bestScore = percentage;
+        }
+
+        // Calculate average score
+        const totalScore = userData.averageScore * (userData.totalQuizzes - 1) + percentage;
+        userData.averageScore = Math.round(totalScore / userData.totalQuizzes);
+
+        // Update streak
+        if (percentage >= CONFIG.PASSING_SCORE) {
+            userData.currentStreak++;
+        } else {
+            userData.currentStreak = 0;
+        }
+
+        // Award badges
+        this.awardBadges(percentage);
+
+        // Update category stats
+        const categoryStats = userData.categoryStats[quizState.category];
+        if (categoryStats && percentage > categoryStats.bestScore) {
+            categoryStats.bestScore = percentage;
+        }
+
+        // Add to quiz history
+        userData.quizHistory.push({
+            category: quizState.category,
+            score: quizState.score,
+            total: quizState.totalQuestions,
+            percentage: percentage,
+            timeTaken: timeTaken,
+            date: new Date().toISOString(),
+            timestamp: Date.now()
+        });
+
+        // Keep only last records
+        if (userData.quizHistory.length > CONFIG.MAX_QUIZ_HISTORY) {
+            userData.quizHistory = userData.quizHistory.slice(-CONFIG.MAX_QUIZ_HISTORY);
+        }
+
+        userData.lastPlayed = new Date().toISOString();
+    },
+
+    awardBadges(percentage) {
+        let newBadges = 0;
+
+        if (percentage === 100) newBadges++;
+        if (percentage >= 90) newBadges++;
+        if (userData.totalQuizzes === 1) newBadges++; // First quiz
+        if (userData.totalQuizzes === 10) newBadges++; // 10 quizzes
+        if (userData.totalQuizzes === 50) newBadges++; // 50 quizzes
+        if (userData.currentStreak === 5) newBadges++; // 5 day streak
+
+        userData.totalBadges += newBadges;
+
+        if (newBadges > 0) {
+            Utils.showNotification(`🎉 You earned ${newBadges} new badge${newBadges > 1 ? 's' : ''}!`, 'success');
+        }
+    },
+
+    stop() {
+        if (quizState.timer) {
+            clearInterval(quizState.timer);
+            quizState.timer = null;
+        }
+        quizState.reset();
+    },
+
+    retry() {
+        const category = quizState.category;
+        this.stop();
+        this.start(category);
+    }
+};
+
+// ============================================
+// 12. SHARE MANAGER
+// ============================================
+const ShareManager = {
+    share(platform) {
+        const percentage = quizState.percentageScore;
+        const category = quizState.category;
+        const categoryNames = {
+            math: 'Statistics & Math',
+            science: 'Science & Nature',
+            art: 'Art and Literature',
+            general: 'General Knowledge',
+            technology: 'Technology'
+        };
+        
+        const text = `I scored ${percentage}% in ${categoryNames[category]} on Quiz App! Can you beat my score?`;
+        const url = window.location.href;
+
+        const shareUrls = {
+            whatsapp: `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`,
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`,
+            twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+        };
+
+        if (shareUrls[platform]) {
+            window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+            Utils.showNotification('Opening share dialog...', 'info');
+        }
+    }
+};
+
+// ============================================
+// 13. EVENT HANDLERS
+// ============================================
+const EventHandlers = {
+    init() {
+        // Sidebar
+        if (DOM.menuBtn) DOM.menuBtn.addEventListener('click', () => SidebarManager.open());
+        if (DOM.closeSidebar) DOM.closeSidebar.addEventListener('click', () => SidebarManager.close());
+        if (DOM.sidebarOverlay) DOM.sidebarOverlay.addEventListener('click', () => SidebarManager.close());
+
+        // Profile
+        if (DOM.profileBtn) DOM.profileBtn.addEventListener('click', () => ProfileManager.open());
+        if (DOM.closeProfile) DOM.closeProfile.addEventListener('click', () => ProfileManager.close());
+        if (DOM.saveProfileBtn) DOM.saveProfileBtn.addEventListener('click', () => ProfileManager.save());
+        if (DOM.cancelProfileBtn) DOM.cancelProfileBtn.addEventListener('click', () => ProfileManager.close());
+
+        // Navigation items
+        DOM.navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const screen = item.getAttribute('data-screen');
+                
+                DOM.navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                
+                if (screen === 'home') {
+                    SidebarManager.close();
+                    ScreenManager.show('home');
+                } else if (screen === 'profile') {
+                    SidebarManager.close();
+                    ProfileManager.open();
                 }
             });
-            
-            optionsContainer.appendChild(optionEl);
         });
-    }
-}
 
-/**
- * Select an option
- */
-function selectOption(index) {
-    if (isAnswerSubmitted) return;
-    
-    // Remove previous selection
-    document.querySelectorAll('.option').forEach(opt => {
-        opt.classList.remove('selected');
-    });
-    
-    // Add selection to clicked option
-    const options = document.querySelectorAll('.option');
-    if (options[index]) {
-        options[index].classList.add('selected');
-        selectedAnswer = index;
-        if (submitBtn) submitBtn.disabled = false;
-    }
-}
+        // Category selection
+        DOM.categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.getAttribute('data-category');
+                QuizManager.start(category);
+            });
+        });
 
-/**
- * Handle submit button click
- */
-function handleSubmit() {
-    if (isAnswerSubmitted) {
-        // Move to next question
-        nextQuestion();
-        return;
-    }
-    
-    if (selectedAnswer === null) return;
-    
-    isAnswerSubmitted = true;
-    answeredQuestions++;
-    
-    const questions = quizData[currentCategory];
-    const question = questions[currentQuestionIndex];
-    const options = document.querySelectorAll('.option');
-    
-    // Disable all options
-    options.forEach(opt => {
-        opt.style.pointerEvents = 'none';
-    });
-    
-    // Show correct/wrong answers
-    options.forEach((opt, index) => {
-        if (index === question.correct) {
-            opt.classList.add('correct');
-            opt.classList.remove('selected');
-        } else if (index === selectedAnswer && selectedAnswer !== question.correct) {
-            opt.classList.add('wrong');
-            opt.classList.remove('selected');
+        // Quiz controls
+        if (DOM.submitBtn) {
+            DOM.submitBtn.addEventListener('click', () => QuizManager.submit());
         }
-    });
-    
-    // Update score
-    if (selectedAnswer === question.correct) {
-        score++;
-    }
-    
-    // Update category stats
-    if (userData.categoryStats[currentCategory]) {
-        userData.categoryStats[currentCategory].attempted++;
-        userData.categoryStats[currentCategory].total++;
-        if (selectedAnswer === question.correct) {
-            userData.categoryStats[currentCategory].correct++;
+
+        // Close buttons
+        DOM.closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (DOM.quizScreen.classList.contains('active')) {
+                    if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
+                        QuizManager.stop();
+                        ScreenManager.show('home');
+                    }
+                } else {
+                    ScreenManager.show('home');
+                }
+            });
+        });
+
+        // Results actions
+        if (DOM.retryQuizBtn) {
+            DOM.retryQuizBtn.addEventListener('click', () => QuizManager.retry());
         }
-    }
-    
-    // Change button text to NEXT
-    if (submitBtn) {
-        submitBtn.textContent = 'NEXT';
-        submitBtn.disabled = false;
-    }
-}
-
-/**
- * Move to next question
- */
-function nextQuestion() {
-    currentQuestionIndex++;
-    
-    if (currentQuestionIndex >= quizData[currentCategory].length) {
-        showResults();
-    } else {
-        loadQuestion();
-    }
-}
-
-// ============================================
-// 12. TIMER MANAGEMENT
-// ============================================
-
-/**
- * Start the quiz timer
- */
-function startTimer() {
-    updateTimerDisplay();
-    
-    timer = setInterval(() => {
-        timeRemaining--;
-        updateTimerDisplay();
-        
-        if (timeRemaining <= 0) {
-            clearInterval(timer);
-            timer = null;
-            showResults();
+        if (DOM.homeBtn) {
+            DOM.homeBtn.addEventListener('click', () => {
+                QuizManager.stop();
+                ScreenManager.show('home');
+            });
         }
-    }, 1000);
-}
 
-/**
- * Update timer display
- */
-function updateTimerDisplay() {
-    if (!timeRemainingEl) return;
-    
-    const minutes = Math.floor(timeRemaining / 60);
-    const seconds = timeRemaining % 60;
-    timeRemainingEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} min`;
-    
-    // Change color if time is running low
-    if (timeRemaining <= 30) {
-        timeRemainingEl.style.color = '#ff4444';
-    } else {
-        timeRemainingEl.style.color = 'rgba(255, 255, 255, 0.7)';
-    }
-}
+        // Share buttons
+        DOM.shareIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                if (icon.classList.contains('whatsapp')) ShareManager.share('whatsapp');
+                else if (icon.classList.contains('facebook')) ShareManager.share('facebook');
+                else if (icon.classList.contains('twitter')) ShareManager.share('twitter');
+            });
+        });
 
-// ============================================
-// 13. RESULTS MANAGEMENT
-// ============================================
+        // Other buttons
+        if (DOM.logoutBtn) {
+            DOM.logoutBtn.addEventListener('click', () => this.handleLogout());
+        }
+        if (DOM.upgradeBtn) {
+            DOM.upgradeBtn.addEventListener('click', () => {
+                Utils.showNotification('Upgrade to Premium - Coming Soon!', 'info');
+            });
+        }
 
-/**
- * Show quiz results
- */
-function showResults() {
-    // Stop timer
-    if (timer) {
-        clearInterval(timer);
-        timer = null;
-    }
-    
-    const questions = quizData[currentCategory];
-    const percentage = Math.round((score / questions.length) * 100);
-    const timeTaken = quizStartTime ? Math.floor((Date.now() - quizStartTime) / 1000) : 0;
-    
-    // Update results display
-    if (scorePercentageEl) scorePercentageEl.textContent = `${percentage}%`;
-    if (totalQuestionsEl) totalQuestionsEl.textContent = questions.length;
-    if (correctAnswersEl) correctAnswersEl.textContent = score;
-    
-    // Update user statistics
-    userData.totalQuizzes++;
-    userData.points += score * 10;
-    
-    // Update best score
-    if (percentage > userData.bestScore) {
-        userData.bestScore = percentage;
-    }
-    
-    // Calculate average score
-    const totalScore = userData.averageScore * (userData.totalQuizzes - 1) + percentage;
-    userData.averageScore = Math.round(totalScore / userData.totalQuizzes);
-    
-    // Update streak (simplified - you can make this more complex)
-    if (percentage >= 70) {
-        userData.currentStreak++;
-    } else {
-        userData.currentStreak = 0;
-    }
-    
-    // Award badges based on achievements
-    updateBadges(percentage, score, questions.length);
-    
-    // Add to quiz history
-    userData.quizHistory.push({
-        category: currentCategory,
-        score: score,
-        total: questions.length,
-        percentage: percentage,
-        timeTaken: timeTaken,
-        date: new Date().toISOString(),
-        timestamp: Date.now()
-    });
-    
-    // Keep only last 50 quiz records
-    if (userData.quizHistory.length > 50) {
-        userData.quizHistory = userData.quizHistory.slice(-50);
-    }
-    
-    // Save updated user data
-    saveUserData(userData);
-    
-    // Update UI
-    updateHomeStats();
-    updateProfileData();
-    
-    // Show results screen
-    showScreen('results');
-    
-    console.log(`Quiz completed: ${score}/${questions.length} (${percentage}%)`);
-}
+        // Sidebar features
+        if (DOM.leaderboardBtn) DOM.leaderboardBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Leaderboard feature coming soon!', 'info');
+        });
+        if (DOM.historyBtn) DOM.historyBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Quiz History feature coming soon!', 'info');
+        });
+        if (DOM.achievementsBtn) DOM.achievementsBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Achievements feature coming soon!', 'info');
+        });
+        if (DOM.settingsBtn) DOM.settingsBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Settings feature coming soon!', 'info');
+        });
 
-/**
- * Update user badges based on performance
- */
-function updateBadges(percentage, score, total) {
-    let newBadges = 0;
-    
-    // Perfect score badge
-    if (percentage === 100) {
-        newBadges++;
-    }
-    
-    // High scorer badge
-    if (percentage >= 90) {
-        newBadges++;
-    }
-    
-    // Milestone badges
-    if (userData.totalQuizzes === 10 || userData.totalQuizzes === 50 || userData.totalQuizzes === 100) {
-        newBadges++;
-    }
-    
-    userData.totalBadges += newBadges;
-}
+        // Preferences
+        const soundCheckbox = document.getElementById('soundEffects');
+        const notifCheckbox = document.getElementById('notifications');
+        const darkModeCheckbox = document.getElementById('darkMode');
 
-// ============================================
-// 14. HOME STATS UPDATE
-// ============================================
+        if (soundCheckbox) {
+            soundCheckbox.addEventListener('change', (e) => {
+                userData.preferences.soundEffects = e.target.checked;
+            });
+        }
+        if (notifCheckbox) {
+            notifCheckbox.addEventListener('change', (e) => {
+                userData.preferences.notifications = e.target.checked;
+            });
+        }
+        if (darkModeCheckbox) {
+            darkModeCheckbox.addEventListener('change', (e) => {
+                userData.preferences.darkMode = e.target.checked;
+                this.toggleDarkMode(e.target.checked);
+            });
+        }
 
-/**
- * Update home screen statistics
- */
-function updateHomeStats() {
-    const homePoints = document.getElementById('homePoints');
-    const homeRank = document.getElementById('homeRank');
-    
-    if (homePoints) {
-        homePoints.textContent = userData.points;
-    }
-    
-    if (homeRank) {
-        // Calculate rank based on points (simplified algorithm)
-        const calculatedRank = Math.max(1, 10000 - Math.floor(userData.points / 10));
-        userData.rank = calculatedRank;
-        homeRank.innerHTML = `${calculatedRank}<span class="rank-suffix">₂</span>`;
-    }
-}
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (DOM.quizScreen.classList.contains('active') && !quizState.isSubmitted) {
+                const key = e.key.toLowerCase();
+                const optionMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+                
+                if (key in optionMap) {
+                    e.preventDefault();
+                    QuizManager.selectOption(optionMap[key]);
+                } else if (key === 'enter' && quizState.selectedAnswer !== null) {
+                    e.preventDefault();
+                    QuizManager.submit();
+                }
+            }
 
-// ============================================
-// 15. SHARE FUNCTIONALITY
-// ============================================
+            // ESC to close modals
+            if (e.key === 'Escape') {
+                if (DOM.profileModal.classList.contains('active')) {
+                    ProfileManager.close();
+                } else if (DOM.sidebar.classList.contains('active')) {
+                    SidebarManager.close();
+                }
+            }
+        });
 
-/**
- * Handle social media sharing
- */
-function handleShare(e) {
-    const shareButton = e.currentTarget;
-    const percentage = scorePercentageEl ? scorePercentageEl.textContent : '0%';
-    const category = quizCategory ? quizCategory.textContent : 'Quiz';
-    const shareText = `I scored ${percentage} in ${category} on Quiz App! Can you beat my score?`;
-    const shareUrl = window.location.href;
-    
-    if (shareButton.classList.contains('whatsapp')) {
-        window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`, '_blank');
-    } else if (shareButton.classList.contains('facebook')) {
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`, '_blank');
-    } else if (shareButton.classList.contains('twitter')) {
-        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
-    }
-    
-    showNotification('Opening share dialog...', 'info');
-}
+        // Prevent accidental page reload
+        window.addEventListener('beforeunload', (e) => {
+            if (DOM.quizScreen.classList.contains('active')) {
+                e.preventDefault();
+                e.returnValue = 'You have a quiz in progress. Are you sure you want to leave?';
+                return e.returnValue;
+            }
+        });
 
-// ============================================
-// 16. NOTIFICATION SYSTEM
-// ============================================
+        // Page visibility handling
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && quizState.timer) {
+                clearInterval(quizState.timer);
+                quizState.timer = null;
+            } else if (!document.hidden && DOM.quizScreen.classList.contains('active') && !quizState.timer && quizState.timeRemaining > 0) {
+                QuizManager.startTimer();
+            }
+        });
+    },
 
-/**
- * Show notification toast
- * @param {string} message - The message to display
- * @param {string} type - 'success', 'error', 'info', 'warning'
- */
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    
-    // Set colors based on type
-    const colors = {
-        success: 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)',
-        error: 'linear-gradient(135deg, #f44336 0%, #e53935 100%)',
-        info: 'linear-gradient(135deg, #ff9a56 0%, #ff7043 100%)',
-        warning: 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)'
-    };
-    
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${colors[type] || colors.info};
-        color: white;
-        padding: 15px 25px;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        z-index: 10000;
-        animation: slideInRight 0.3s ease;
-        max-width: 300px;
-        font-size: 14px;
-        font-weight: 500;
-    `;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
+    handleLogout() {
+        if (confirm('Are you sure you want to logout? Your data will be reset.')) {
+            userData = userDataManager.reset();
+            SidebarManager.updateUserInfo();
+            ProfileManager.updateFields();
+            HomeManager.updateStats();
+            SidebarManager.close();
+            Utils.showNotification('Logged out successfully!', 'success');
+        }
+    },
 
-// ============================================
-// 17. UTILITY FUNCTIONS
-// ============================================
-
-/**
- * Show coming soon message for features
- */
-function showComingSoon(featureName) {
-    showNotification(`${featureName} feature coming soon!`, 'info');
-    closeSidebar();
-}
-
-/**
- * Handle upgrade button click
- */
-function handleUpgrade() {
-    showNotification('Upgrade to Premium - Add your payment integration here!', 'info');
-}
-
-/**
- * Toggle dark mode
- */
-function toggleDarkMode(enabled) {
-    if (enabled) {
-        document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-        showNotification('Light mode enabled', 'success');
-    } else {
-        document.body.style.filter = '';
-        showNotification('Light mode disabled', 'success');
-    }
-}
-
-/**
- * Shuffle array (Fisher-Yates algorithm)
- */
-function shuffleArray(array) {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-}
-
-/**
- * Format time duration
- */
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}:${secs.toString().padStart(2, '0')}`;
-}
-
-/**
- * Get greeting based on time of day
- */
-function getGreeting() {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning';
-    if (hour < 18) return 'Good Afternoon';
-    return 'Good Evening';
-}
-
-// ============================================
-// 18. KEYBOARD SHORTCUTS
-// ============================================
-
-/**
- * Handle keyboard shortcuts
- */
-document.addEventListener('keydown', (e) => {
-    // Quiz shortcuts (A, B, C, D, Enter)
-    if (quizScreen && quizScreen.classList.contains('active') && !isAnswerSubmitted) {
-        const key = e.key.toLowerCase();
-        const optionMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
-        
-        if (key in optionMap) {
-            e.preventDefault();
-            selectOption(optionMap[key]);
-        } else if (key === 'enter' && selectedAnswer !== null) {
-            e.preventDefault();
-            handleSubmit();
+    toggleDarkMode(enabled) {
+        if (enabled) {
+            document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+            Utils.showNotification('Dark mode enabled', 'success');
+        } else {
+            document.body.style.filter = '';
+            Utils.showNotification('Dark mode disabled', 'success');
         }
     }
-    
-    // Close modals with Escape
-    if (e.key === 'Escape') {
-        if (profileModal && profileModal.classList.contains('active')) {
-            closeProfile();
-        } else if (sidebar && sidebar.classList.contains('active')) {
-            closeSidebar();
-        }
-    }
-});
+};
 
 // ============================================
-// 19. PAGE VISIBILITY & LIFECYCLE
+// 14. ANIMATION INJECTOR
 // ============================================
-
-/**
- * Prevent accidental page reload during quiz
- */
-window.addEventListener('beforeunload', (e) => {
-    if (quizScreen && quizScreen.classList.contains('active')) {
-        e.preventDefault();
-        e.returnValue = 'You have a quiz in progress. Are you sure you want to leave?';
-        return e.returnValue;
-    }
-});
-
-/**
- * Handle page visibility changes (pause timer when tab is hidden)
- */
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        // Page is hidden - pause timer
-        if (timer && quizScreen && quizScreen.classList.contains('active')) {
-            clearInterval(timer);
-            timer = null;
-            console.log('Quiz paused - tab hidden');
-        }
-    } else {
-        // Page is visible - resume timer
-        if (!timer && quizScreen && quizScreen.classList.contains('active') && timeRemaining > 0) {
-            startTimer();
-            console.log('Quiz resumed - tab visible');
-        }
-    }
-});
-
-// ============================================
-// 20. ANIMATION STYLES (Injected)
-// ============================================
-
-/**
- * Inject animation keyframes into document
- */
-const injectAnimationStyles = () => {
+function injectAnimations() {
     const style = document.createElement('style');
     style.textContent = `
         @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         
         @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(400px);
-                opacity: 0;
-            }
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
         }
         
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .trophy-animation {
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 31, 58, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 154, 86, 0.3);
+            border-top: 4px solid #ff9a56;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-overlay p {
+            color: white;
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff9a56, #ff7043);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .results-stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .result-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            min-width: 100px;
+        }
+
+        .result-icon {
+            font-size: 24px;
+        }
+
+        .result-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff9a56;
+        }
+
+        .result-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .performance-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .performance-badge.perfect { background: linear-gradient(135deg, #ffd700, #ffed4e); color: #333; }
+        .performance-badge.excellent { background: linear-gradient(135deg, #4caf50, #45a049); color: white; }
+        .performance-badge.great { background: linear-gradient(135deg, #2196F3, #1976D2); color: white; }
+        .performance-badge.good { background: linear-gradient(135deg, #ff9800, #f57c00); color: white; }
+        .performance-badge.pass { background: linear-gradient(135deg, #607D8B, #455A64); color: white; }
+        .performance-badge.retry { background: linear-gradient(135deg, #f44336, #e53935); color: white; }
+
+        .badge-icon {
+            font-size: 20px;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .results-actions button {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
         }
     `;
     document.head.appendChild(style);
-};
-
-// ============================================
-// 21. LOCAL STORAGE UTILITIES
-// ============================================
-
-/**
- * Clear all local storage data
- */
-function clearAllData() {
-    if (confirm('This will delete all your quiz data. Are you sure?')) {
-        localStorage.clear();
-        userData = getUserData();
-        updateHomeStats();
-        updateSidebarUserInfo();
-        updateProfileData();
-        showNotification('All data cleared successfully', 'success');
-    }
 }
 
-/**
- * Export user data as JSON
- */
-function exportData() {
-    const dataStr = JSON.stringify(userData, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `quiz-app-data-${Date.now()}.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    showNotification('Data exported successfully', 'success');
-}
+// ============================================
+// 15. APPLICATION INITIALIZATION
+// ============================================
+function initApp() {
+    console.log('%c 📊 Quiz App v2.0 - Enhanced Edition ', 'background: #ff9a56; color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
+    console.log('%c ✨ New: Statistics & Math Category Added! ', 'background: #4caf50; color: white; font-size: 14px; padding: 8px; border-radius: 5px;');
 
-/**
- * Import user data from JSON file
- */
-function importData(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        try {
-            const importedData = JSON.parse(e.target.result);
-            userData = { ...getUserData(), ...importedData };
-            saveUserData(userData);
-            updateHomeStats();
-            updateSidebarUserInfo();
-            updateProfileData();
-            showNotification('Data imported successfully', 'success');
-        } catch (error) {
-            showNotification('Error importing data: Invalid file format', 'error');
-            console.error('Import error:', error);
+    // Initialize components
+    EventHandlers.init();
+    SidebarManager.updateUserInfo();
+    HomeManager.updateStats();
+    ProfileManager.updateFields();
+    injectAnimations();
+
+    // Setup auto-save
+    setInterval(() => {
+        if (userDataManager.save(userData)) {
+            console.log('Auto-saved user data');
         }
-    };
-    reader.readAsText(file);
+    }, CONFIG.AUTO_SAVE_INTERVAL);
+
+    console.log('💡 Keyboard Shortcuts:');
+    console.log('  - A/B/C/D: Select answer');
+    console.log('  - Enter: Submit answer');
+    console.log('  - Escape: Close modals');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 }
 
 // ============================================
-// 22. PERFORMANCE MONITORING
+// 16. DEVELOPER TOOLS
 // ============================================
-
-/**
- * Log performance metrics
- */
-function logPerformance() {
-    if (window.performance && window.performance.timing) {
-        const timing = window.performance.timing;
-        const loadTime = timing.loadEventEnd - timing.navigationStart;
-        console.log(`Page load time: ${loadTime}ms`);
-    }
-}
-
-// ============================================
-// 23. ERROR HANDLING
-// ============================================
-
-/**
- * Global error handler
- */
-window.addEventListener('error', (e) => {
-    console.error('Global error:', e.error);
-    showNotification('An error occurred. Please refresh the page.', 'error');
-});
-
-/**
- * Unhandled promise rejection handler
- */
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('Unhandled promise rejection:', e.reason);
-    showNotification('An error occurred. Please try again.', 'error');
-});
-
-// ============================================
-// 24. INITIALIZATION SEQUENCE
-// ============================================
-
-/**
- * Initialize app when DOM is ready
- */
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        init();
-        injectAnimationStyles();
-        logPerformance();
-    });
-} else {
-    init();
-    injectAnimationStyles();
-    logPerformance();
-}
-
-// ============================================
-// 25. DEVELOPMENT HELPERS (Console Commands)
-// ============================================
-
-// Make these functions available in console for debugging
 window.quizApp = {
+    version: '2.0.0',
     getUserData: () => userData,
-    clearData: clearAllData,
-    exportData: exportData,
+    clearData: () => {
+        userData = userDataManager.reset();
+        HomeManager.updateStats();
+        SidebarManager.updateUserInfo();
+        Utils.showNotification('All data cleared', 'success');
+    },
     addPoints: (points) => {
         userData.points += points;
-        saveUserData(userData);
-        updateHomeStats();
-        showNotification(`Added ${points} points!`, 'success');
-    },
-    resetQuiz: () => {
-        stopQuiz();
-        showScreen('home');
-        showNotification('Quiz reset', 'info');
+        userDataManager.save(userData);
+        HomeManager.updateStats();
+        Utils.showNotification(`Added ${points} points!`, 'success');
     },
     completeQuiz: () => {
-        score = totalQuestions;
-        showResults();
+        quizState.score = quizState.totalQuestions;
+        QuizManager.showResults();
     },
-    version: '1.0.0'
+    getStats: () => userData.categoryStats,
+    exportData: () => {
+        const dataStr = JSON.stringify(userData, null, 2);
+        console.log(dataStr);
+        return userData;
+    }
 };
 
 // ============================================
-// END OF SCRIPT
+// 17. START APPLICATION
 // ============================================
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
-console.log('%c Quiz App v1.0.0 ', 'background: #4caf50; color: white; font-size: 14px; padding: 5px 10px; border-radius: 5px;');
-console.log('%c Development Mode Active ', 'background: #ff9800; color: white; font-size: 12px; padding: 5px 10px; border-radius: 5px;');
-console.log('💡 Type "quizApp" in console to see available debugging commands');
-console.log('💡 Available commands: getUserData(), clearData(), exportData(), addPoints(n), resetQuiz(), completeQuiz()');
-console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('%c Type "quizApp" in console for developer tools ', 'background: #2196F3; color: white; font-size: 12px; padding: 5px 10px; border-radius: 5px;');
