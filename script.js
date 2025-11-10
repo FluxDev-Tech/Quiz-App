@@ -325,7 +325,7 @@ const quizData = {
 // 2. APPLICATION CONFIGURATION
 // ============================================
 const CONFIG = {
-    TIME_PER_QUESTION: 30, // seconds
+    TIME_PER_QUESTION: 20, // seconds
     POINTS_PER_CORRECT: 10,
     PASSING_SCORE: 70, // percentage
     MAX_QUIZ_HISTORY: 50,
