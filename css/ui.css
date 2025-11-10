@@ -1,0 +1,387 @@
+/* ============================================
+   16. RESPONSIVE DESIGN - MOBILE SMALL (320px - 480px)
+   ============================================ */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        border-radius: 25px;
+        padding: 15px;
+        max-width: 100%;
+        min-height: auto;
+    }
+
+    /* Header adjustments */
+    header {
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    /* Stats card responsive */
+    .stats-card {
+        padding: 20px 15px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat-divider {
+        width: 50px;
+        height: 2px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    /* Categories */
+    .category-card {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .category-icon {
+        font-size: 24px;
+    }
+
+    .category-name {
+        font-size: 14px;
+    }
+
+    /* Quiz screen */
+    .quiz-header {
+        margin-bottom: 20px;
+    }
+
+    .quiz-info {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .question-container {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+
+    .question {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    /* Options */
+    .options-container {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .option {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .option-label {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .option-text {
+        font-size: 14px;
+    }
+
+    /* Buttons */
+    .submit-btn,
+    .upgrade-btn {
+        padding: 15px;
+        font-size: 15px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 280px;
+        left: -280px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 20px;
+    }
+
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .user-details h3 {
+        font-size: 16px;
+    }
+
+    .nav-item {
+        padding: 12px 15px;
+        font-size: 15px;
+    }
+
+    /* Profile modal */
+    .profile-modal {
+        padding: 10px;
+    }
+
+    .profile-content {
+        max-width: 100%;
+        border-radius: 20px;
+    }
+
+    .profile-header h2 {
+        font-size: 20px;
+    }
+
+    .profile-avatar-large {
+        width: 100px;
+        height: 100px;
+        font-size: 50px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat-box {
+        padding: 15px;
+    }
+
+    .stat-number {
+        font-size: 20px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* Results screen */
+    .results-card {
+        padding: 30px 15px;
+    }
+
+    .trophy-icon {
+        font-size: 60px;
+    }
+
+    .results-card h2 {
+        font-size: 24px;
+    }
+
+    #scorePercentage {
+        font-size: 36px;
+    }
+
+    .share-section {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* ============================================
+   17. RESPONSIVE DESIGN - MOBILE MEDIUM (481px - 767px)
+   ============================================ */
+@media (min-width: 481px) and (max-width: 767px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        max-width: 540px;
+        padding: 20px;
+    }
+
+    .stats-card {
+        padding: 25px 20px;
+    }
+
+    .stat-value {
+        font-size: 32px;
+    }
+
+    .category-card {
+        padding: 18px;
+    }
+
+    .question {
+        font-size: 16px;
+    }
+
+    .sidebar {
+        width: 300px;
+        left: -300px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================
+   18. RESPONSIVE DESIGN - TABLET (768px - 1024px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+    body {
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 600px;
+        padding: 25px;
+    }
+
+    .stats-card {
+        padding: 30px;
+    }
+
+    .stat-value {
+        font-size: 40px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .category-card {
+        padding: 22px;
+    }
+
+    .category-icon {
+        font-size: 32px;
+    }
+
+    .category-name {
+        font-size: 17px;
+    }
+
+    .question {
+        font-size: 17px;
+    }
+
+    .option {
+        padding: 20px;
+    }
+
+    .option-label {
+        width: 45px;
+        height: 45px;
+        font-size: 17px;
+    }
+
+    .option-text {
+        font-size: 16px;
+    }
+
+    .sidebar {
+        width: 340px;
+        left: -340px;
+    }
+
+    .profile-content {
+        max-width: 650px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================
+   19. RESPONSIVE DESIGN - DESKTOP (1025px+)
+   ============================================ */
+@media (min-width: 1025px) {
+    body {
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 650px;
+        padding: 30px;
+    }
+
+    .stats-card {
+        padding: 35px;
+    }
+
+    .stat-value {
+        font-size: 42px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .category-card {
+        padding: 25px;
+    }
+
+    .category-icon {
+        font-size: 34px;
+    }
+
+    .category-name {
+        font-size: 18px;
+    }
+
+    .question-container {
+        padding: 30px;
+    }
+
+    .question {
+        font-size: 18px;
+    }
+
+    .option {
+        padding: 22px 25px;
+    }
+
+    .option-label {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+
+    .option-text {
+        font-size: 16px;
+    }
+
+    .submit-btn,
+    .upgrade-btn {
+        padding: 20px;
+        font-size: 17px;
+    }
+
+    .sidebar {
+        width: 360px;
+        left: -360px;
+    }
+
+    .profile-content {
+        max-width: 700px;
+    }
+}
+
+/* ============================================
+   20. RESPONSIVE DESIGN - LARGE DESKTOP (1440px+)
+   ============================================ */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 700px;
+    }
+
+    .profile-content {
+        max-width: 750px;
+    }
+}
