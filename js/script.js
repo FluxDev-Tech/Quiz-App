@@ -1,351 +1,350 @@
 /* ============================================
-   QUIZ APP - PROFESSIONAL EDITION v3.0
-   Enhanced with smooth animations & modern design
+   QUIZ APP - ENHANCED JAVASCRIPT v2.0
+   Save as: script.js
    ============================================ */
 
 'use strict';
 
 // ============================================
-// 1. ENHANCED QUIZ DATA
+// 1. QUIZ DATA WITH STATISTICS & MATH
 // ============================================
 const quizData = {
     math: [
         {
-            question: "What is the probability of rolling two dice and getting a sum of 7?",
-            options: ["1/6", "1/4", "1/3", "1/2"],
-            correct: 0,
-            explanation: "There are 6 favorable outcomes (1+6, 2+5, 3+4, 4+3, 5+2, 6+1) out of 36 total: 6/36 = 1/6"
+            question: "What is the mean of the following dataset: 5, 10, 15, 20, 25?",
+            options: ["12", "15", "17.5", "20"],
+            correct: 1,
+            explanation: "Mean = (5+10+15+20+25)/5 = 75/5 = 15"
         },
         {
-            question: "Calculate the variance of this dataset: 2, 4, 6, 8, 10",
+            question: "What is the median of: 3, 7, 9, 12, 15?",
+            options: ["7", "9", "12", "10"],
+            correct: 1,
+            explanation: "The median is the middle value when arranged in order: 9"
+        },
+        {
+            question: "If a die is rolled, what is the probability of getting a number greater than 4?",
+            options: ["1/6", "1/3", "1/2", "2/3"],
+            correct: 1,
+            explanation: "Numbers greater than 4 are 5 and 6. Probability = 2/6 = 1/3"
+        },
+        {
+            question: "What is the mode of: 2, 4, 4, 6, 8, 8, 8, 10?",
             options: ["4", "6", "8", "10"],
             correct: 2,
-            explanation: "Mean = 6, Variance = Σ(x-mean)²/n = [(4²+2²+0²+2²+4²)/5] = 8"
+            explanation: "Mode is the most frequently occurring value: 8 appears 3 times"
         },
         {
-            question: "If 3x - 5 = 16, what is the value of 2x + 3?",
-            options: ["11", "13", "15", "17"],
+            question: "What is the range of the dataset: 5, 12, 18, 3, 25, 9?",
+            options: ["20", "22", "25", "30"],
+            correct: 1,
+            explanation: "Range = Maximum - Minimum = 25 - 3 = 22"
+        },
+        {
+            question: "Solve: 3x + 7 = 22. What is x?",
+            options: ["3", "5", "7", "9"],
+            correct: 1,
+            explanation: "3x = 22 - 7 = 15, therefore x = 15/3 = 5"
+        },
+        {
+            question: "What is 25% of 200?",
+            options: ["25", "40", "50", "75"],
             correct: 2,
-            explanation: "3x = 21, so x = 7. Therefore 2(7) + 3 = 17"
+            explanation: "25% of 200 = 0.25 × 200 = 50"
         },
         {
-            question: "What is the interquartile range (IQR) of: 5, 7, 9, 11, 13, 15, 17?",
-            options: ["6", "8", "10", "12"],
+            question: "If you flip two coins, what is the probability of getting two heads?",
+            options: ["1/2", "1/4", "1/3", "2/3"],
             correct: 1,
-            explanation: "Q1 = 7, Q3 = 15, IQR = Q3 - Q1 = 15 - 7 = 8"
+            explanation: "P(HH) = P(H) × P(H) = 1/2 × 1/2 = 1/4"
         },
         {
-            question: "A bag contains 3 red and 7 blue balls. What's the probability of drawing 2 red balls consecutively without replacement?",
-            options: ["3/45", "1/15", "3/50", "2/25"],
+            question: "What is the standard deviation concept measuring?",
+            options: ["Central tendency", "Spread of data", "Correlation", "Causation"],
             correct: 1,
-            explanation: "P = (3/10) × (2/9) = 6/90 = 1/15"
+            explanation: "Standard deviation measures how spread out numbers are from the mean"
         },
         {
-            question: "What is 35% of 240?",
-            options: ["72", "84", "96", "108"],
+            question: "In a normal distribution, approximately what percentage of data falls within one standard deviation of the mean?",
+            options: ["50%", "68%", "95%", "99.7%"],
             correct: 1,
-            explanation: "35% of 240 = 0.35 × 240 = 84"
-        },
-        {
-            question: "Find the median of: 15, 22, 8, 31, 19, 27, 12",
-            options: ["15", "19", "22", "27"],
-            correct: 1,
-            explanation: "Ordered: 8, 12, 15, 19, 22, 27, 31. The median (middle value) is 19"
-        },
-        {
-            question: "If f(x) = 2x² - 3x + 1, what is f(3)?",
-            options: ["8", "10", "12", "14"],
-            correct: 1,
-            explanation: "f(3) = 2(3)² - 3(3) + 1 = 18 - 9 + 1 = 10"
-        },
-        {
-            question: "What percentage of data in a normal distribution falls within 2 standard deviations?",
-            options: ["68%", "95%", "99.7%", "100%"],
-            correct: 1,
-            explanation: "According to the empirical rule, 95% of data falls within 2σ of the mean"
-        },
-        {
-            question: "Simplify: (x³ × x⁵) ÷ x⁴",
-            options: ["x²", "x⁴", "x⁶", "x⁸"],
-            correct: 1,
-            explanation: "x³⁺⁵⁻⁴ = x⁸⁻⁴ = x⁴"
+            explanation: "The 68-95-99.7 rule states that 68% of data falls within 1 standard deviation"
         }
     ],
     science: [
         {
-            question: "What is the smallest unit of life that can function independently?",
-            options: ["Atom", "Molecule", "Cell", "Tissue"],
-            correct: 2,
-            explanation: "The cell is the basic structural and functional unit of all living organisms"
-        },
-        {
-            question: "Which element has the atomic number 6?",
-            options: ["Oxygen", "Nitrogen", "Carbon", "Helium"],
-            correct: 2,
-            explanation: "Carbon has 6 protons, giving it an atomic number of 6"
-        },
-        {
-            question: "What type of bond involves the sharing of electron pairs?",
-            options: ["Ionic", "Covalent", "Metallic", "Hydrogen"],
+            question: "Which space agency conducted the first all-female spacewalk?",
+            options: ["Roscosmos", "NASA", "ISRO", "JAXA"],
             correct: 1,
-            explanation: "Covalent bonds form when atoms share electrons to achieve stability"
+            explanation: "NASA conducted this historic spacewalk in 2019"
         },
         {
-            question: "Which planet has the most moons?",
-            options: ["Jupiter", "Saturn", "Uranus", "Neptune"],
-            correct: 1,
-            explanation: "Saturn has 146 confirmed moons, more than any other planet"
-        },
-        {
-            question: "What is the pH of pure water at 25°C?",
-            options: ["0", "7", "10", "14"],
-            correct: 1,
-            explanation: "Pure water is neutral with a pH of 7 at standard temperature"
-        },
-        {
-            question: "Which organ produces insulin?",
-            options: ["Liver", "Kidney", "Pancreas", "Spleen"],
+            question: "What is the chemical symbol for gold?",
+            options: ["Go", "Gd", "Au", "Ag"],
             correct: 2,
-            explanation: "The pancreas produces insulin, which regulates blood sugar levels"
+            explanation: "Au comes from the Latin word 'aurum'"
         },
         {
-            question: "What is the formula for photosynthesis?",
-            options: ["CO₂ + H₂O → C₆H₁₂O₆ + O₂", "O₂ + C₆H₁₂O₆ → CO₂ + H₂O", "H₂O + O₂ → CO₂", "CO₂ → O₂"],
+            question: "How many bones are in the adult human body?",
+            options: ["186", "206", "226", "246"],
+            correct: 1,
+            explanation: "Adults have 206 bones (babies have about 270)"
+        },
+        {
+            question: "What is the speed of light in vacuum?",
+            options: ["299,792 km/s", "199,792 km/s", "399,792 km/s", "99,792 km/s"],
             correct: 0,
-            explanation: "Plants convert carbon dioxide and water into glucose and oxygen using sunlight"
+            explanation: "Light travels at approximately 299,792 kilometers per second"
         },
         {
-            question: "Which force keeps planets in orbit around the Sun?",
-            options: ["Electromagnetic", "Nuclear", "Gravitational", "Frictional"],
+            question: "Which planet is known as the Red Planet?",
+            options: ["Venus", "Jupiter", "Mars", "Saturn"],
             correct: 2,
-            explanation: "Gravity provides the centripetal force that keeps planets in their orbits"
+            explanation: "Mars appears red due to iron oxide on its surface"
         },
         {
-            question: "What is the boiling point of water at sea level in Celsius?",
-            options: ["90°C", "95°C", "100°C", "105°C"],
-            correct: 2,
-            explanation: "Water boils at 100°C (212°F) at standard atmospheric pressure"
+            question: "What is the powerhouse of the cell?",
+            options: ["Nucleus", "Mitochondria", "Ribosome", "Chloroplast"],
+            correct: 1,
+            explanation: "Mitochondria produce ATP, the energy currency of cells"
         },
         {
-            question: "Which vitamin is produced when skin is exposed to sunlight?",
-            options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin E"],
+            question: "What is the most abundant gas in Earth's atmosphere?",
+            options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
             correct: 2,
-            explanation: "UVB radiation triggers vitamin D synthesis in the skin"
+            explanation: "Nitrogen makes up about 78% of Earth's atmosphere"
+        },
+        {
+            question: "What is the hardest natural substance on Earth?",
+            options: ["Gold", "Iron", "Diamond", "Platinum"],
+            correct: 2,
+            explanation: "Diamond rates 10 on the Mohs hardness scale"
+        },
+        {
+            question: "How long does it take for light from the Sun to reach Earth?",
+            options: ["8 minutes", "8 seconds", "8 hours", "8 days"],
+            correct: 0,
+            explanation: "Sunlight takes about 8 minutes and 20 seconds to reach Earth"
+        },
+        {
+            question: "What is the largest organ in the human body?",
+            options: ["Heart", "Brain", "Liver", "Skin"],
+            correct: 3,
+            explanation: "The skin is the largest organ, covering about 20 square feet"
         }
     ],
     art: [
         {
-            question: "Which art period is characterized by dramatic use of light and shadow?",
-            options: ["Renaissance", "Baroque", "Impressionism", "Cubism"],
+            question: "Who painted the Mona Lisa?",
+            options: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"],
             correct: 1,
-            explanation: "Baroque art (1600-1750) featured dramatic lighting and emotional intensity"
+            explanation: "Leonardo da Vinci painted this masterpiece in the early 1500s"
         },
         {
-            question: "Who wrote 'Pride and Prejudice'?",
-            options: ["Charlotte Brontë", "Jane Austen", "Emily Dickinson", "Virginia Woolf"],
-            correct: 1,
-            explanation: "Jane Austen published this classic romance novel in 1813"
-        },
-        {
-            question: "What musical term means 'gradually getting louder'?",
-            options: ["Diminuendo", "Crescendo", "Staccato", "Legato"],
-            correct: 1,
-            explanation: "Crescendo indicates a gradual increase in volume"
-        },
-        {
-            question: "Which architect designed the Guggenheim Museum in New York?",
-            options: ["Frank Lloyd Wright", "Le Corbusier", "Zaha Hadid", "Antoni Gaudí"],
-            correct: 0,
-            explanation: "Frank Lloyd Wright designed this iconic spiral building, completed in 1959"
-        },
-        {
-            question: "What is the primary color triad in painting?",
-            options: ["Red, Green, Blue", "Red, Yellow, Blue", "Cyan, Magenta, Yellow", "Orange, Purple, Green"],
-            correct: 1,
-            explanation: "Red, yellow, and blue are the traditional primary colors in art"
-        },
-        {
-            question: "Who composed 'The Magic Flute'?",
-            options: ["Beethoven", "Mozart", "Bach", "Haydn"],
-            correct: 1,
-            explanation: "Wolfgang Amadeus Mozart composed this opera in 1791"
-        },
-        {
-            question: "Which literary device compares two things using 'like' or 'as'?",
-            options: ["Metaphor", "Simile", "Personification", "Hyperbole"],
-            correct: 1,
-            explanation: "A simile makes comparisons using 'like' or 'as' (e.g., 'as brave as a lion')"
-        },
-        {
-            question: "Who painted 'The Persistence of Memory' with melting clocks?",
-            options: ["Pablo Picasso", "Salvador Dalí", "René Magritte", "Joan Miró"],
-            correct: 1,
-            explanation: "Salvador Dalí created this surrealist masterpiece in 1931"
-        },
-        {
-            question: "What is the term for a Japanese form of poetry with 5-7-5 syllable structure?",
-            options: ["Sonnet", "Haiku", "Limerick", "Tanka"],
-            correct: 1,
-            explanation: "Haiku consists of three lines with 5, 7, and 5 syllables"
-        },
-        {
-            question: "Which artist is famous for the 'Blue Period'?",
-            options: ["Vincent van Gogh", "Claude Monet", "Pablo Picasso", "Henri Matisse"],
+            question: "In which century did the Renaissance begin?",
+            options: ["12th century", "13th century", "14th century", "15th century"],
             correct: 2,
-            explanation: "Picasso's Blue Period (1901-1904) featured melancholic blue-toned paintings"
+            explanation: "The Renaissance began in Italy in the 14th century"
+        },
+        {
+            question: "Who wrote 'Romeo and Juliet'?",
+            options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+            correct: 1,
+            explanation: "Shakespeare wrote this tragedy around 1594-1596"
+        },
+        {
+            question: "What art movement is Salvador Dali associated with?",
+            options: ["Impressionism", "Cubism", "Surrealism", "Expressionism"],
+            correct: 2,
+            explanation: "Dali was a leading figure in the Surrealist movement"
+        },
+        {
+            question: "Who composed 'The Four Seasons'?",
+            options: ["Bach", "Mozart", "Vivaldi", "Beethoven"],
+            correct: 2,
+            explanation: "Antonio Vivaldi composed this violin concerto in 1723"
+        },
+        {
+            question: "Who painted 'The Starry Night'?",
+            options: ["Claude Monet", "Vincent van Gogh", "Paul Cézanne", "Edgar Degas"],
+            correct: 1,
+            explanation: "Van Gogh painted this masterpiece in 1889"
+        },
+        {
+            question: "Which author wrote '1984'?",
+            options: ["Aldous Huxley", "Ray Bradbury", "George Orwell", "Ernest Hemingway"],
+            correct: 2,
+            explanation: "George Orwell published this dystopian novel in 1949"
+        },
+        {
+            question: "What is the art of beautiful handwriting called?",
+            options: ["Typography", "Calligraphy", "Lithography", "Photography"],
+            correct: 1,
+            explanation: "Calligraphy is decorative handwriting or lettering"
+        },
+        {
+            question: "Who sculpted 'David'?",
+            options: ["Donatello", "Michelangelo", "Bernini", "Rodin"],
+            correct: 1,
+            explanation: "Michelangelo created this Renaissance masterpiece (1501-1504)"
+        },
+        {
+            question: "Which playwright wrote 'Hamlet'?",
+            options: ["Christopher Marlowe", "William Shakespeare", "Ben Jonson", "John Webster"],
+            correct: 1,
+            explanation: "Shakespeare wrote Hamlet around 1600"
         }
     ],
     general: [
         {
-            question: "Which river is the longest in the world?",
-            options: ["Amazon", "Nile", "Yangtze", "Mississippi"],
-            correct: 1,
-            explanation: "The Nile River in Africa is approximately 6,650 km long"
-        },
-        {
-            question: "In which year did the Berlin Wall fall?",
-            options: ["1987", "1989", "1991", "1993"],
-            correct: 1,
-            explanation: "The Berlin Wall fell on November 9, 1989, reunifying Germany"
-        },
-        {
-            question: "What is the capital of Australia?",
-            options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+            question: "What is the capital of France?",
+            options: ["London", "Berlin", "Paris", "Madrid"],
             correct: 2,
-            explanation: "Canberra has been Australia's capital since 1913"
+            explanation: "Paris has been France's capital since 987 AD"
         },
         {
-            question: "Which language has the most native speakers worldwide?",
-            options: ["English", "Spanish", "Mandarin Chinese", "Hindi"],
+            question: "How many continents are there?",
+            options: ["5", "6", "7", "8"],
             correct: 2,
-            explanation: "Mandarin Chinese has over 900 million native speakers"
+            explanation: "The seven continents are: Asia, Africa, North America, South America, Antarctica, Europe, and Australia"
         },
         {
-            question: "Mount Kilimanjaro is located in which country?",
-            options: ["Kenya", "Tanzania", "Uganda", "Ethiopia"],
-            correct: 1,
-            explanation: "Africa's highest mountain is in northeastern Tanzania"
-        },
-        {
-            question: "What is the currency of Switzerland?",
-            options: ["Euro", "Swiss Franc", "Krone", "Pound"],
-            correct: 1,
-            explanation: "Switzerland uses the Swiss Franc (CHF), not the Euro"
-        },
-        {
-            question: "Which ocean is the deepest?",
-            options: ["Atlantic", "Indian", "Pacific", "Arctic"],
+            question: "What is the largest ocean on Earth?",
+            options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
             correct: 2,
-            explanation: "The Pacific Ocean's Mariana Trench reaches 10,994 meters deep"
+            explanation: "The Pacific Ocean covers about 63 million square miles"
         },
         {
-            question: "How many time zones does Russia span?",
-            options: ["7", "9", "11", "13"],
+            question: "In which year did World War II end?",
+            options: ["1943", "1944", "1945", "1946"],
             correct: 2,
-            explanation: "Russia spans 11 time zones, more than any other country"
+            explanation: "WWII ended in 1945 with Germany's surrender in May and Japan's in September"
         },
         {
-            question: "Which country gifted the Statue of Liberty to the USA?",
-            options: ["England", "France", "Spain", "Italy"],
+            question: "What is the smallest country in the world?",
+            options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
             correct: 1,
-            explanation: "France gifted the statue in 1886 as a symbol of friendship"
+            explanation: "Vatican City is 0.17 square miles in area"
         },
         {
-            question: "What is the most populated city in the world?",
-            options: ["Shanghai", "Tokyo", "Delhi", "São Paulo"],
-            correct: 1,
-            explanation: "Tokyo metropolitan area has over 37 million residents"
+            question: "Which country is known as the Land of the Rising Sun?",
+            options: ["China", "Thailand", "Japan", "South Korea"],
+            correct: 2,
+            explanation: "Japan is called this because of its eastern location"
+        },
+        {
+            question: "What is the currency of the United Kingdom?",
+            options: ["Euro", "Dollar", "Pound Sterling", "Franc"],
+            correct: 2,
+            explanation: "The British Pound Sterling (GBP) is one of the oldest currencies"
+        },
+        {
+            question: "How many colors are in a rainbow?",
+            options: ["5", "6", "7", "8"],
+            correct: 2,
+            explanation: "The seven colors are: Red, Orange, Yellow, Green, Blue, Indigo, Violet"
+        },
+        {
+            question: "What is the tallest mountain in the world?",
+            options: ["K2", "Kangchenjunga", "Mount Everest", "Lhotse"],
+            correct: 2,
+            explanation: "Mount Everest stands at 29,032 feet (8,849 meters)"
+        },
+        {
+            question: "Which planet is closest to the Sun?",
+            options: ["Venus", "Mars", "Mercury", "Earth"],
+            correct: 2,
+            explanation: "Mercury orbits at an average distance of 36 million miles from the Sun"
         }
     ],
     technology: [
         {
-            question: "What does API stand for?",
-            options: ["Application Programming Interface", "Advanced Programming Integration", "Automated Process Integration", "Application Process Interface"],
-            correct: 0,
-            explanation: "APIs allow different software applications to communicate with each other"
-        },
-        {
-            question: "Which company developed the Android operating system?",
-            options: ["Apple", "Microsoft", "Google", "Samsung"],
-            correct: 2,
-            explanation: "Google acquired and developed Android, released in 2008"
-        },
-        {
-            question: "What does RAM stand for?",
-            options: ["Random Access Memory", "Read Access Memory", "Rapid Access Memory", "Remote Access Memory"],
-            correct: 0,
-            explanation: "RAM is temporary storage that the computer uses for active tasks"
-        },
-        {
-            question: "Who is credited with inventing the World Wide Web?",
-            options: ["Bill Gates", "Steve Jobs", "Tim Berners-Lee", "Larry Page"],
-            correct: 2,
-            explanation: "Tim Berners-Lee invented the WWW in 1989 at CERN"
-        },
-        {
-            question: "What is the binary equivalent of the decimal number 10?",
-            options: ["1010", "1100", "1001", "1110"],
-            correct: 0,
-            explanation: "10 in decimal = 1×8 + 0×4 + 1×2 + 0×1 = 1010 in binary"
-        },
-        {
-            question: "Which programming language is known for its snake logo?",
-            options: ["Java", "Python", "Ruby", "C++"],
+            question: "Who is known as the father of computers?",
+            options: ["Alan Turing", "Charles Babbage", "Steve Jobs", "Bill Gates"],
             correct: 1,
-            explanation: "Python uses a snake logo and is named after Monty Python"
+            explanation: "Charles Babbage designed the first mechanical computer in the 1830s"
         },
         {
-            question: "What does VPN stand for?",
-            options: ["Virtual Private Network", "Visual Programming Network", "Verified Protection Network", "Variable Process Node"],
+            question: "What does CPU stand for?",
+            options: ["Central Processing Unit", "Computer Personal Unit", "Central Processor Utility", "Core Processing Unit"],
             correct: 0,
-            explanation: "VPNs create secure, encrypted connections over the internet"
+            explanation: "CPU is the primary component that processes instructions"
         },
         {
-            question: "Which company owns Instagram?",
-            options: ["Twitter", "Google", "Meta (Facebook)", "Microsoft"],
+            question: "In what year was the first iPhone released?",
+            options: ["2005", "2006", "2007", "2008"],
             correct: 2,
-            explanation: "Meta (formerly Facebook) acquired Instagram in 2012"
+            explanation: "Steve Jobs unveiled the iPhone on January 9, 2007"
         },
         {
-            question: "What is the maximum character limit for a traditional SMS text message?",
-            options: ["100", "140", "160", "200"],
-            correct: 2,
-            explanation: "Standard SMS messages are limited to 160 characters"
+            question: "What does HTML stand for?",
+            options: ["Hyper Text Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
+            correct: 0,
+            explanation: "HTML is the standard markup language for web pages"
         },
         {
-            question: "Which protocol is used to send emails?",
-            options: ["HTTP", "FTP", "SMTP", "TCP"],
+            question: "Who founded Microsoft?",
+            options: ["Steve Jobs", "Bill Gates", "Mark Zuckerberg", "Elon Musk"],
+            correct: 1,
+            explanation: "Bill Gates and Paul Allen founded Microsoft in 1975"
+        },
+        {
+            question: "What does WWW stand for?",
+            options: ["World Wide Web", "Web World Wide", "Wide World Web", "World Web Wide"],
+            correct: 0,
+            explanation: "Tim Berners-Lee invented the World Wide Web in 1989"
+        },
+        {
+            question: "What language is known as the 'language of the web'?",
+            options: ["Python", "Java", "JavaScript", "C++"],
             correct: 2,
-            explanation: "SMTP (Simple Mail Transfer Protocol) is used for sending emails"
+            explanation: "JavaScript enables interactive web pages and runs in browsers"
+        },
+        {
+            question: "What does USB stand for?",
+            options: ["Universal Serial Bus", "United Serial Bus", "Universal System Bus", "United System Bus"],
+            correct: 0,
+            explanation: "USB is an industry standard for cables and connectors"
+        },
+        {
+            question: "Who founded Facebook?",
+            options: ["Jack Dorsey", "Mark Zuckerberg", "Elon Musk", "Jeff Bezos"],
+            correct: 1,
+            explanation: "Mark Zuckerberg launched Facebook in 2004"
+        },
+        {
+            question: "What does AI stand for?",
+            options: ["Automated Intelligence", "Artificial Intelligence", "Advanced Intelligence", "Algorithmic Intelligence"],
+            correct: 1,
+            explanation: "AI refers to machines simulating human intelligence"
         }
     ]
 };
 
 // ============================================
-// 2. ENHANCED CONFIGURATION
+// 2. APPLICATION CONFIGURATION
 // ============================================
 const CONFIG = {
-    TIME_PER_QUESTION: 30,
+    TIME_PER_QUESTION: 10, // seconds
     POINTS_PER_CORRECT: 10,
-    PASSING_SCORE: 70,
+    PASSING_SCORE: 70, // percentage
     MAX_QUIZ_HISTORY: 50,
-    AUTO_SAVE_INTERVAL: 5000,
-    ANIMATION_DURATION: 400,
-    FEEDBACK_DELAY: 1500
+    AUTO_SAVE_INTERVAL: 5000, // ms
+    ANIMATION_DURATION: 300 // ms
 };
 
 // ============================================
-// 3. USER DATA MANAGER
+// 3. USER DATA MANAGEMENT
 // ============================================
 class UserDataManager {
     constructor() {
         this.defaultData = {
-            name: "Quiz Master",
-            email: "user@quizpro.com",
-            username: "quiz_master",
-            bio: "Passionate learner",
-            points: 150,
-            rank: 2847,
+            name: "Guest User",
+            email: "guest@quizapp.com",
+            username: "guest_user",
+            bio: "",
+            points: 230,
+            rank: 1250,
             totalQuizzes: 0,
             averageScore: 0,
             currentStreak: 0,
@@ -418,7 +417,6 @@ class QuizState {
         this.timeRemaining = 0;
         this.timer = null;
         this.startTime = null;
-        this.answers = [];
     }
 
     init(category) {
@@ -454,33 +452,31 @@ class QuizState {
         this.selectedAnswer = null;
         this.isSubmitted = false;
     }
-
-    recordAnswer(questionIndex, selectedOption, correct) {
-        this.answers.push({
-            questionIndex,
-            selectedOption,
-            correct,
-            timestamp: Date.now()
-        });
-    }
 }
 
 const quizState = new QuizState();
 
 // ============================================
-// 5. DOM REFERENCES
+// 5. DOM ELEMENT REFERENCES
 // ============================================
 const DOM = {
+    // Screens
     homeScreen: document.getElementById('homeScreen'),
     quizScreen: document.getElementById('quizScreen'),
     resultsScreen: document.getElementById('resultsScreen'),
+    
+    // Sidebar
     sidebar: document.getElementById('sidebar'),
     sidebarOverlay: document.getElementById('sidebarOverlay'),
     menuBtn: document.getElementById('menuBtn'),
     closeSidebar: document.getElementById('closeSidebar'),
+    
+    // Profile
     profileModal: document.getElementById('profileModal'),
     profileBtn: document.getElementById('profileBtn'),
     closeProfile: document.getElementById('closeProfile'),
+    
+    // Quiz elements
     categoryCards: document.querySelectorAll('.category-card'),
     questionText: document.getElementById('questionText'),
     optionsContainer: document.getElementById('optionsContainer'),
@@ -491,6 +487,8 @@ const DOM = {
     quizCategory: document.getElementById('quizCategory'),
     quizCategoryIcon: document.getElementById('quizCategoryIcon'),
     progressFill: document.getElementById('progressFill'),
+    
+    // Results
     scorePercentageEl: document.getElementById('scorePercentage'),
     totalQuestionsEl: document.getElementById('totalQuestions'),
     correctAnswersEl: document.getElementById('correctAnswers'),
@@ -499,8 +497,12 @@ const DOM = {
     timeTaken: document.getElementById('timeTaken'),
     accuracyRate: document.getElementById('accuracyRate'),
     pointsEarned: document.getElementById('pointsEarned'),
+    
+    // Home stats
     homePoints: document.getElementById('homePoints'),
     homeRank: document.getElementById('homeRank'),
+    
+    // Profile fields
     profileName: document.getElementById('profileName'),
     profileEmail: document.getElementById('profileEmail'),
     profileUsername: document.getElementById('profileUsername'),
@@ -509,6 +511,8 @@ const DOM = {
     averageScore: document.getElementById('averageScore'),
     currentStreak: document.getElementById('currentStreak'),
     totalBadges: document.getElementById('totalBadges'),
+    
+    // Buttons
     saveProfileBtn: document.getElementById('saveProfileBtn'),
     cancelProfileBtn: document.getElementById('cancelProfileBtn'),
     logoutBtn: document.getElementById('logoutBtn'),
@@ -517,12 +521,20 @@ const DOM = {
     upgradeBtn: document.getElementById('upgradeBtn'),
     closeButtons: document.querySelectorAll('.close-btn'),
     shareIcons: document.querySelectorAll('.share-icon'),
+    
+    // Nav items
     navItems: document.querySelectorAll('.nav-item'),
+    leaderboardBtn: document.getElementById('leaderboardBtn'),
+    historyBtn: document.getElementById('historyBtn'),
+    achievementsBtn: document.getElementById('achievementsBtn'),
+    settingsBtn: document.getElementById('settingsBtn'),
+    
+    // Loading
     loadingOverlay: document.getElementById('loadingOverlay')
 };
 
 // ============================================
-// 6. ENHANCED UTILITIES
+// 6. UTILITY FUNCTIONS
 // ============================================
 const Utils = {
     formatTime(seconds) {
@@ -541,37 +553,29 @@ const Utils = {
     },
 
     getPerformanceBadge(percentage) {
-        if (percentage === 100) return { icon: '🏆', text: 'Perfect Score!', class: 'perfect' };
-        if (percentage >= 90) return { icon: '⭐', text: 'Excellent Work', class: 'excellent' };
-        if (percentage >= 80) return { icon: '👍', text: 'Great Job', class: 'great' };
-        if (percentage >= 70) return { icon: '👌', text: 'Good Performance', class: 'good' };
-        if (percentage >= 60) return { icon: '✓', text: 'Passed', class: 'pass' };
-        return { icon: '📚', text: 'Keep Practicing', class: 'retry' };
+        if (percentage === 100) return { icon: '🏆', text: 'Perfect!', class: 'perfect' };
+        if (percentage >= 90) return { icon: '⭐', text: 'Excellent', class: 'excellent' };
+        if (percentage >= 80) return { icon: '👍', text: 'Great', class: 'great' };
+        if (percentage >= 70) return { icon: '👌', text: 'Good', class: 'good' };
+        if (percentage >= 60) return { icon: '✓', text: 'Pass', class: 'pass' };
+        return { icon: '📚', text: 'Keep Learning', class: 'retry' };
     },
 
-    showNotification(message, type = 'info', duration = 3000) {
+    showNotification(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-icon">${this.getNotificationIcon(type)}</span>
-                <span class="notification-message">${message}</span>
-            </div>
-        `;
-        
+        notification.textContent = message;
         notification.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 16px 24px;
-            border-radius: 12px;
+            padding: 15px 25px;
+            border-radius: 10px;
             color: white;
             font-weight: 500;
             z-index: 10000;
-            animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            min-width: 280px;
-            backdrop-filter: blur(10px);
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         `;
         
         const colors = {
@@ -585,45 +589,18 @@ const Utils = {
         document.body.appendChild(notification);
         
         setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-            setTimeout(() => notification.remove(), 400);
-        }, duration);
-    },
-
-    getNotificationIcon(type) {
-        const icons = {
-            success: '✓',
-            error: '✕',
-            warning: '⚠',
-            info: 'ℹ'
-        };
-        return icons[type] || icons.info;
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     },
 
     calculateRank(points) {
         return Math.max(1, 10000 - Math.floor(points / 10));
-    },
-
-    animateValue(element, start, end, duration = 1000) {
-        if (!element) return;
-        
-        const range = end - start;
-        const increment = range / (duration / 16);
-        let current = start;
-        
-        const timer = setInterval(() => {
-            current += increment;
-            if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-                current = end;
-                clearInterval(timer);
-            }
-            element.textContent = Math.round(current);
-        }, 16);
     }
 };
 
 // ============================================
-// 7. SCREEN MANAGER
+// 7. SCREEN MANAGEMENT
 // ============================================
 const ScreenManager = {
     show(screenName) {
@@ -639,7 +616,7 @@ const ScreenManager = {
 
         const screen = screenMap[screenName];
         if (screen) {
-            setTimeout(() => screen.classList.add('active'), 50);
+            screen.classList.add('active');
             if (screenName === 'quiz') {
                 this.updateProgressBar();
             }
@@ -724,7 +701,7 @@ const ProfileManager = {
             SidebarManager.updateUserInfo();
             HomeManager.updateStats();
             this.close();
-            Utils.showNotification('✓ Profile updated successfully!', 'success');
+            Utils.showNotification('Profile updated successfully!', 'success');
         } else {
             Utils.showNotification('Failed to save profile', 'error');
         }
@@ -736,12 +713,10 @@ const ProfileManager = {
 // ============================================
 const HomeManager = {
     updateStats() {
-        if (DOM.homePoints) {
-            Utils.animateValue(DOM.homePoints, parseInt(DOM.homePoints.textContent) || 0, userData.points, 800);
-        }
+        if (DOM.homePoints) DOM.homePoints.textContent = userData.points;
         if (DOM.homeRank) {
             const rank = Utils.calculateRank(userData.points);
-            DOM.homeRank.innerHTML = `${rank}<span class="rank-suffix">th</span>`;
+            DOM.homeRank.innerHTML = `${rank}<span class="rank-suffix">₂</span>`;
         }
     }
 };
@@ -761,9 +736,9 @@ const QuizManager = {
         const categoryNames = {
             math: { name: 'Statistics & Math', icon: '📊' },
             science: { name: 'Science & Nature', icon: '🔬' },
-            art: { name: 'Art & Literature', icon: '🎨' },
-            general: { name: 'General Knowledge', icon: '🌍' },
-            technology: { name: 'Technology', icon: '💻' }
+            art: { name: 'Art and Literature', icon: '🎨' },
+            general: { name: 'General Knowledge', icon: '📦' },
+            technology: { name: 'Technology', icon: '💡' }
         };
 
         const categoryInfo = categoryNames[category];
@@ -788,16 +763,11 @@ const QuizManager = {
 
         if (DOM.submitBtn) {
             DOM.submitBtn.disabled = true;
-            DOM.submitBtn.textContent = 'SUBMIT ANSWER';
-            DOM.submitBtn.classList.remove('next-btn');
+            DOM.submitBtn.textContent = 'SUBMIT';
         }
 
         if (DOM.questionText) {
-            DOM.questionText.style.opacity = '0';
-            setTimeout(() => {
-                DOM.questionText.textContent = question.question;
-                DOM.questionText.style.opacity = '1';
-            }, 200);
+            DOM.questionText.textContent = `${quizState.currentIndex + 1}. ${question.question}`;
         }
 
         if (DOM.currentQuestionEl) {
@@ -805,34 +775,26 @@ const QuizManager = {
         }
 
         if (DOM.optionsContainer) {
-            DOM.optionsContainer.style.opacity = '0';
+            DOM.optionsContainer.innerHTML = '';
+            const labels = ['A', 'B', 'C', 'D'];
             
-            setTimeout(() => {
-                DOM.optionsContainer.innerHTML = '';
-                const labels = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, index) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'option';
+                optionEl.setAttribute('data-index', index);
+                optionEl.innerHTML = `
+                    <div class="option-label">${labels[index]}</div>
+                    <div class="option-text">${option}</div>
+                `;
                 
-                question.options.forEach((option, index) => {
-                    const optionEl = document.createElement('div');
-                    optionEl.className = 'option';
-                    optionEl.setAttribute('data-index', index);
-                    optionEl.style.animationDelay = `${index * 0.1}s`;
-                    optionEl.innerHTML = `
-                        <div class="option-label">${labels[index]}</div>
-                        <div class="option-text">${option}</div>
-                        <div class="option-check">✓</div>
-                    `;
-                    
-                    optionEl.addEventListener('click', () => {
-                        if (!quizState.isSubmitted) {
-                            this.selectOption(index);
-                        }
-                    });
-                    
-                    DOM.optionsContainer.appendChild(optionEl);
+                optionEl.addEventListener('click', () => {
+                    if (!quizState.isSubmitted) {
+                        this.selectOption(index);
+                    }
                 });
                 
-                DOM.optionsContainer.style.opacity = '1';
-            }, 250);
+                DOM.optionsContainer.appendChild(optionEl);
+            });
         }
 
         ScreenManager.updateProgressBar();
@@ -849,11 +811,7 @@ const QuizManager = {
         if (options[index]) {
             options[index].classList.add('selected');
             quizState.selectedAnswer = index;
-            if (DOM.submitBtn) {
-                DOM.submitBtn.disabled = false;
-                DOM.submitBtn.classList.add('pulse');
-                setTimeout(() => DOM.submitBtn.classList.remove('pulse'), 600);
-            }
+            if (DOM.submitBtn) DOM.submitBtn.disabled = false;
         }
     },
 
@@ -868,49 +826,39 @@ const QuizManager = {
         quizState.isSubmitted = true;
         const question = quizState.currentQuestion;
         const options = document.querySelectorAll('.option');
-        const isCorrect = quizState.selectedAnswer === question.correct;
 
         options.forEach(opt => {
             opt.style.pointerEvents = 'none';
         });
 
         options.forEach((opt, index) => {
-            setTimeout(() => {
-                if (index === question.correct) {
-                    opt.classList.add('correct');
-                    opt.classList.remove('selected');
-                } else if (index === quizState.selectedAnswer && !isCorrect) {
-                    opt.classList.add('wrong');
-                    opt.classList.remove('selected');
-                }
-            }, 200);
+            if (index === question.correct) {
+                opt.classList.add('correct');
+                opt.classList.remove('selected');
+            } else if (index === quizState.selectedAnswer && quizState.selectedAnswer !== question.correct) {
+                opt.classList.add('wrong');
+                opt.classList.remove('selected');
+            }
         });
 
-        if (isCorrect) {
+        if (quizState.selectedAnswer === question.correct) {
             quizState.score++;
-            Utils.showNotification('✓ Correct Answer!', 'success', 1500);
-        } else {
-            Utils.showNotification('✗ Incorrect Answer', 'error', 1500);
         }
 
-        quizState.recordAnswer(quizState.currentIndex, quizState.selectedAnswer, isCorrect);
-
+        // Update category stats
         const categoryStats = userData.categoryStats[quizState.category];
         if (categoryStats) {
             categoryStats.attempted++;
             categoryStats.totalQuestions++;
-            if (isCorrect) {
+            if (quizState.selectedAnswer === question.correct) {
                 categoryStats.correct++;
             }
         }
 
-        setTimeout(() => {
-            if (DOM.submitBtn) {
-                DOM.submitBtn.textContent = quizState.isLastQuestion ? 'VIEW RESULTS' : 'NEXT QUESTION';
-                DOM.submitBtn.disabled = false;
-                DOM.submitBtn.classList.add('next-btn');
-            }
-        }, CONFIG.FEEDBACK_DELAY);
+        if (DOM.submitBtn) {
+            DOM.submitBtn.textContent = quizState.isLastQuestion ? 'FINISH' : 'NEXT';
+            DOM.submitBtn.disabled = false;
+        }
     },
 
     nextQuestion() {
@@ -932,8 +880,7 @@ const QuizManager = {
             if (quizState.timeRemaining <= 0) {
                 clearInterval(quizState.timer);
                 quizState.timer = null;
-                Utils.showNotification('⏱ Time\'s up!', 'warning');
-                setTimeout(() => this.showResults(), 1000);
+                this.showResults();
             }
         }, 1000);
     },
@@ -945,13 +892,8 @@ const QuizManager = {
 
         if (quizState.timeRemaining <= 30) {
             DOM.timeRemainingEl.style.color = '#ff4444';
-            DOM.timeRemainingEl.classList.add('timer-warning');
-        } else if (quizState.timeRemaining <= 60) {
-            DOM.timeRemainingEl.style.color = '#ff9800';
-            DOM.timeRemainingEl.classList.remove('timer-warning');
         } else {
             DOM.timeRemainingEl.style.color = 'rgba(255, 255, 255, 0.7)';
-            DOM.timeRemainingEl.classList.remove('timer-warning');
         }
     },
 
@@ -965,23 +907,15 @@ const QuizManager = {
         const timeTaken = quizState.timeTaken;
         const pointsEarned = quizState.score * CONFIG.POINTS_PER_CORRECT;
 
-        if (DOM.scorePercentageEl) {
-            Utils.animateValue(DOM.scorePercentageEl, 0, percentage, 1500);
-            DOM.scorePercentageEl.textContent = '0';
-            setTimeout(() => {
-                DOM.scorePercentageEl.textContent = `${percentage}%`;
-            }, 100);
-        }
-        
+        // Update results display
+        if (DOM.scorePercentageEl) DOM.scorePercentageEl.textContent = `${percentage}%`;
         if (DOM.totalQuestionsEl) DOM.totalQuestionsEl.textContent = quizState.totalQuestions;
         if (DOM.correctAnswersEl) DOM.correctAnswersEl.textContent = quizState.score;
         if (DOM.timeTaken) DOM.timeTaken.textContent = Utils.formatTime(timeTaken);
         if (DOM.accuracyRate) DOM.accuracyRate.textContent = `${percentage}%`;
-        if (DOM.pointsEarned) {
-            DOM.pointsEarned.textContent = `+${pointsEarned}`;
-            DOM.pointsEarned.classList.add('pulse');
-        }
+        if (DOM.pointsEarned) DOM.pointsEarned.textContent = `+${pointsEarned}`;
 
+        // Performance badge
         const badge = Utils.getPerformanceBadge(percentage);
         if (DOM.performanceBadge) {
             DOM.performanceBadge.innerHTML = `
@@ -991,12 +925,15 @@ const QuizManager = {
             DOM.performanceBadge.className = `performance-badge ${badge.class}`;
         }
 
+        // Results title
         if (DOM.resultsTitle) {
-            DOM.resultsTitle.textContent = percentage >= 70 ? '🎉 Congratulations!' : '💪 Good Effort!';
+            DOM.resultsTitle.textContent = percentage >= 70 ? 'Congratulations!' : 'Good Effort!';
         }
 
+        // Update user statistics
         this.updateUserStats(percentage, pointsEarned, timeTaken);
 
+        // Save and update UI
         userDataManager.save(userData);
         HomeManager.updateStats();
         ProfileManager.updateFields();
@@ -1008,26 +945,32 @@ const QuizManager = {
         userData.totalQuizzes++;
         userData.points += pointsEarned;
 
+        // Update best score
         if (percentage > userData.bestScore) {
             userData.bestScore = percentage;
         }
 
+        // Calculate average score
         const totalScore = userData.averageScore * (userData.totalQuizzes - 1) + percentage;
         userData.averageScore = Math.round(totalScore / userData.totalQuizzes);
 
+        // Update streak
         if (percentage >= CONFIG.PASSING_SCORE) {
             userData.currentStreak++;
         } else {
             userData.currentStreak = 0;
         }
 
+        // Award badges
         this.awardBadges(percentage);
 
+        // Update category stats
         const categoryStats = userData.categoryStats[quizState.category];
         if (categoryStats && percentage > categoryStats.bestScore) {
             categoryStats.bestScore = percentage;
         }
 
+        // Add to quiz history
         userData.quizHistory.push({
             category: quizState.category,
             score: quizState.score,
@@ -1038,6 +981,7 @@ const QuizManager = {
             timestamp: Date.now()
         });
 
+        // Keep only last records
         if (userData.quizHistory.length > CONFIG.MAX_QUIZ_HISTORY) {
             userData.quizHistory = userData.quizHistory.slice(-CONFIG.MAX_QUIZ_HISTORY);
         }
@@ -1050,17 +994,15 @@ const QuizManager = {
 
         if (percentage === 100) newBadges++;
         if (percentage >= 90) newBadges++;
-        if (userData.totalQuizzes === 1) newBadges++;
-        if (userData.totalQuizzes === 10) newBadges++;
-        if (userData.totalQuizzes === 50) newBadges++;
-        if (userData.currentStreak === 5) newBadges++;
+        if (userData.totalQuizzes === 1) newBadges++; // First quiz
+        if (userData.totalQuizzes === 10) newBadges++; // 10 quizzes
+        if (userData.totalQuizzes === 50) newBadges++; // 50 quizzes
+        if (userData.currentStreak === 5) newBadges++; // 5 day streak
 
         userData.totalBadges += newBadges;
 
         if (newBadges > 0) {
-            setTimeout(() => {
-                Utils.showNotification(`🎉 You earned ${newBadges} new badge${newBadges > 1 ? 's' : ''}!`, 'success');
-            }, 1000);
+            Utils.showNotification(`🎉 You earned ${newBadges} new badge${newBadges > 1 ? 's' : ''}!`, 'success');
         }
     },
 
@@ -1089,12 +1031,12 @@ const ShareManager = {
         const categoryNames = {
             math: 'Statistics & Math',
             science: 'Science & Nature',
-            art: 'Art & Literature',
+            art: 'Art and Literature',
             general: 'General Knowledge',
             technology: 'Technology'
         };
         
-        const text = `🎯 I scored ${percentage}% in ${categoryNames[category]} on Quiz Pro! Can you beat my score?`;
+        const text = `I scored ${percentage}% in ${categoryNames[category]} on Quiz App! Can you beat my score?`;
         const url = window.location.href;
 
         const shareUrls = {
@@ -1105,7 +1047,7 @@ const ShareManager = {
 
         if (shareUrls[platform]) {
             window.open(shareUrls[platform], '_blank', 'width=600,height=400');
-            Utils.showNotification('📤 Opening share dialog...', 'info');
+            Utils.showNotification('Opening share dialog...', 'info');
         }
     }
 };
@@ -1115,15 +1057,18 @@ const ShareManager = {
 // ============================================
 const EventHandlers = {
     init() {
+        // Sidebar
         if (DOM.menuBtn) DOM.menuBtn.addEventListener('click', () => SidebarManager.open());
         if (DOM.closeSidebar) DOM.closeSidebar.addEventListener('click', () => SidebarManager.close());
         if (DOM.sidebarOverlay) DOM.sidebarOverlay.addEventListener('click', () => SidebarManager.close());
 
+        // Profile
         if (DOM.profileBtn) DOM.profileBtn.addEventListener('click', () => ProfileManager.open());
         if (DOM.closeProfile) DOM.closeProfile.addEventListener('click', () => ProfileManager.close());
         if (DOM.saveProfileBtn) DOM.saveProfileBtn.addEventListener('click', () => ProfileManager.save());
         if (DOM.cancelProfileBtn) DOM.cancelProfileBtn.addEventListener('click', () => ProfileManager.close());
 
+        // Navigation items
         DOM.navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1142,25 +1087,24 @@ const EventHandlers = {
             });
         });
 
+        // Category selection
         DOM.categoryCards.forEach(card => {
             card.addEventListener('click', () => {
                 const category = card.getAttribute('data-category');
-                card.classList.add('card-click');
-                setTimeout(() => {
-                    card.classList.remove('card-click');
-                    QuizManager.start(category);
-                }, 300);
+                QuizManager.start(category);
             });
         });
 
+        // Quiz controls
         if (DOM.submitBtn) {
             DOM.submitBtn.addEventListener('click', () => QuizManager.submit());
         }
 
+        // Close buttons
         DOM.closeButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 if (DOM.quizScreen.classList.contains('active')) {
-                    if (confirm('⚠️ Are you sure you want to exit? Your progress will be lost.')) {
+                    if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
                         QuizManager.stop();
                         ScreenManager.show('home');
                     }
@@ -1170,6 +1114,7 @@ const EventHandlers = {
             });
         });
 
+        // Results actions
         if (DOM.retryQuizBtn) {
             DOM.retryQuizBtn.addEventListener('click', () => QuizManager.retry());
         }
@@ -1180,6 +1125,7 @@ const EventHandlers = {
             });
         }
 
+        // Share buttons
         DOM.shareIcons.forEach(icon => {
             icon.addEventListener('click', () => {
                 if (icon.classList.contains('whatsapp')) ShareManager.share('whatsapp');
@@ -1188,15 +1134,57 @@ const EventHandlers = {
             });
         });
 
+        // Other buttons
         if (DOM.logoutBtn) {
             DOM.logoutBtn.addEventListener('click', () => this.handleLogout());
         }
         if (DOM.upgradeBtn) {
             DOM.upgradeBtn.addEventListener('click', () => {
-                Utils.showNotification('⭐ Upgrade to Premium - Coming Soon!', 'info');
+                Utils.showNotification('Upgrade to Premium - Coming Soon!', 'info');
             });
         }
 
+        // Sidebar features
+        if (DOM.leaderboardBtn) DOM.leaderboardBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Leaderboard feature coming soon!', 'info');
+        });
+        if (DOM.historyBtn) DOM.historyBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Quiz History feature coming soon!', 'info');
+        });
+        if (DOM.achievementsBtn) DOM.achievementsBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Achievements feature coming soon!', 'info');
+        });
+        if (DOM.settingsBtn) DOM.settingsBtn.addEventListener('click', () => {
+            SidebarManager.close();
+            Utils.showNotification('Settings feature coming soon!', 'info');
+        });
+
+        // Preferences
+        const soundCheckbox = document.getElementById('soundEffects');
+        const notifCheckbox = document.getElementById('notifications');
+        const darkModeCheckbox = document.getElementById('darkMode');
+
+        if (soundCheckbox) {
+            soundCheckbox.addEventListener('change', (e) => {
+                userData.preferences.soundEffects = e.target.checked;
+            });
+        }
+        if (notifCheckbox) {
+            notifCheckbox.addEventListener('change', (e) => {
+                userData.preferences.notifications = e.target.checked;
+            });
+        }
+        if (darkModeCheckbox) {
+            darkModeCheckbox.addEventListener('change', (e) => {
+                userData.preferences.darkMode = e.target.checked;
+                this.toggleDarkMode(e.target.checked);
+            });
+        }
+
+        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (DOM.quizScreen.classList.contains('active') && !quizState.isSubmitted) {
                 const key = e.key.toLowerCase();
@@ -1211,47 +1199,60 @@ const EventHandlers = {
                 }
             }
 
+            // ESC to close modals
             if (e.key === 'Escape') {
-                if (DOM.profileModal && DOM.profileModal.classList.contains('active')) {
+                if (DOM.profileModal.classList.contains('active')) {
                     ProfileManager.close();
-                } else if (DOM.sidebar && DOM.sidebar.classList.contains('active')) {
+                } else if (DOM.sidebar.classList.contains('active')) {
                     SidebarManager.close();
                 }
             }
         });
 
+        // Prevent accidental page reload
         window.addEventListener('beforeunload', (e) => {
-            if (DOM.quizScreen && DOM.quizScreen.classList.contains('active')) {
+            if (DOM.quizScreen.classList.contains('active')) {
                 e.preventDefault();
                 e.returnValue = 'You have a quiz in progress. Are you sure you want to leave?';
                 return e.returnValue;
             }
         });
 
+        // Page visibility handling
         document.addEventListener('visibilitychange', () => {
             if (document.hidden && quizState.timer) {
                 clearInterval(quizState.timer);
                 quizState.timer = null;
-            } else if (!document.hidden && DOM.quizScreen && DOM.quizScreen.classList.contains('active') && !quizState.timer && quizState.timeRemaining > 0) {
+            } else if (!document.hidden && DOM.quizScreen.classList.contains('active') && !quizState.timer && quizState.timeRemaining > 0) {
                 QuizManager.startTimer();
             }
         });
     },
 
     handleLogout() {
-        if (confirm('⚠️ Are you sure you want to logout? Your data will be reset.')) {
+        if (confirm('Are you sure you want to logout? Your data will be reset.')) {
             userData = userDataManager.reset();
             SidebarManager.updateUserInfo();
             ProfileManager.updateFields();
             HomeManager.updateStats();
             SidebarManager.close();
-            Utils.showNotification('👋 Logged out successfully!', 'success');
+            Utils.showNotification('Logged out successfully!', 'success');
+        }
+    },
+
+    toggleDarkMode(enabled) {
+        if (enabled) {
+            document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+            Utils.showNotification('Light mode enabled', 'success');
+        } else {
+            document.body.style.filter = '';
+            Utils.showNotification('Light mode disabled', 'success');
         }
     }
 };
 
 // ============================================
-// 14. ANIMATION STYLES
+// 14. ANIMATION INJECTOR
 // ============================================
 function injectAnimations() {
     const style = document.createElement('style');
@@ -1272,171 +1273,175 @@ function injectAnimations() {
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
+        
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
 
-        .option {
-            animation: fadeIn 0.5s ease forwards;
-            opacity: 0;
+        .trophy-animation {
+            animation: bounce 1s ease-in-out infinite;
         }
 
-        .option.selected {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(255, 154, 86, 0.3);
-        }
-
-        .option.correct {
-            animation: correctAnswer 0.6s ease;
-        }
-
-        .option.wrong {
-            animation: wrongAnswer 0.6s ease;
-        }
-
-        @keyframes correctAnswer {
-            0% { background: rgba(255, 255, 255, 0.05); }
-            50% { background: rgba(76, 175, 80, 0.3); transform: scale(1.03); }
-            100% { background: rgba(76, 175, 80, 0.2); }
-        }
-
-        @keyframes wrongAnswer {
-            0% { background: rgba(255, 255, 255, 0.05); }
-            25% { transform: translateX(-5px); }
-            50% { background: rgba(244, 67, 54, 0.3); transform: translateX(5px); }
-            75% { transform: translateX(-3px); }
-            100% { background: rgba(244, 67, 54, 0.2); transform: translateX(0); }
-        }
-
-        .card-click {
-            animation: cardClick 0.3s ease;
-        }
-
-        @keyframes cardClick {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-            100% { transform: scale(1); }
-        }
-
-        .timer-warning {
-            animation: timerPulse 1s ease-in-out infinite;
-        }
-
-        @keyframes timerPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        .notification-content {
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 31, 58, 0.95);
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        .notification-icon {
-            font-size: 20px;
-            font-weight: bold;
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .option-check {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%) scale(0);
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 154, 86, 0.3);
+            border-top: 4px solid #ff9a56;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-overlay p {
+            color: white;
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff9a56, #ff7043);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .results-stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .result-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            min-width: 100px;
+        }
+
+        .result-icon {
             font-size: 24px;
-            color: #4caf50;
-            font-weight: bold;
-            transition: transform 0.3s ease;
         }
 
-        .option.correct .option-check {
-            transform: translateY(-50%) scale(1);
+        .result-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff9a56;
         }
 
-        .pulse {
-            animation: pulse 0.6s ease;
-        }
-
-        .next-btn {
-            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%) !important;
+        .result-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .performance-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
-            border-radius: 25px;
-            margin: 20px 0;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 15px 0;
             font-weight: 600;
-            font-size: 16px;
-            animation: fadeIn 0.6s ease;
         }
 
-        .performance-badge.perfect { 
-            background: linear-gradient(135deg, #ffd700, #ffed4e); 
-            color: #333;
-            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
-        }
-        .performance-badge.excellent { 
-            background: linear-gradient(135deg, #4caf50, #45a049); 
-            color: white;
-            box-shadow: 0 10px 40px rgba(76, 175, 80, 0.4);
-        }
-        .performance-badge.great { 
-            background: linear-gradient(135deg, #2196F3, #1976D2); 
-            color: white;
-            box-shadow: 0 10px 40px rgba(33, 150, 243, 0.4);
-        }
-        .performance-badge.good { 
-            background: linear-gradient(135deg, #ff9800, #f57c00); 
-            color: white;
-            box-shadow: 0 10px 40px rgba(255, 152, 0, 0.4);
-        }
-        .performance-badge.pass { 
-            background: linear-gradient(135deg, #607D8B, #455A64); 
-            color: white;
-        }
-        .performance-badge.retry { 
-            background: linear-gradient(135deg, #f44336, #e53935); 
-            color: white;
-        }
+        .performance-badge.perfect { background: linear-gradient(135deg, #ffd700, #ffed4e); color: #333; }
+        .performance-badge.excellent { background: linear-gradient(135deg, #4caf50, #45a049); color: white; }
+        .performance-badge.great { background: linear-gradient(135deg, #2196F3, #1976D2); color: white; }
+        .performance-badge.good { background: linear-gradient(135deg, #ff9800, #f57c00); color: white; }
+        .performance-badge.pass { background: linear-gradient(135deg, #607D8B, #455A64); color: white; }
+        .performance-badge.retry { background: linear-gradient(135deg, #f44336, #e53935); color: white; }
 
         .badge-icon {
-            font-size: 24px;
+            font-size: 20px;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .results-actions button {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
         }
     `;
     document.head.appendChild(style);
 }
 
 // ============================================
-// 15. APP INITIALIZATION
+// 15. APPLICATION INITIALIZATION
 // ============================================
 function initApp() {
-    console.log('%c 🚀 Quiz App v3.0 - Professional Edition ', 'background: #ff9a56; color: white; font-size: 18px; padding: 12px; border-radius: 8px; font-weight: bold;');
-    console.log('%c ✨ Enhanced with smooth animations & modern design ', 'background: #4caf50; color: white; font-size: 14px; padding: 8px; border-radius: 5px;');
+    console.log('%c 📊 Quiz App v2.0 - Enhanced Edition ', 'background: #ff9a56; color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
+    console.log('%c ✨ New: Statistics & Math Category Added! ', 'background: #4caf50; color: white; font-size: 14px; padding: 8px; border-radius: 5px;');
 
+    // Initialize components
     EventHandlers.init();
     SidebarManager.updateUserInfo();
     HomeManager.updateStats();
     ProfileManager.updateFields();
     injectAnimations();
 
+    // Setup auto-save
     setInterval(() => {
         if (userDataManager.save(userData)) {
-            console.log('💾 Auto-saved user data');
+            console.log('Auto-saved user data');
         }
     }, CONFIG.AUTO_SAVE_INTERVAL);
 
-    console.log('%c 💡 Keyboard Shortcuts ', 'background: #2196F3; color: white; font-size: 14px; padding: 8px; border-radius: 5px; font-weight: bold;');
-    console.log('  📝 A/B/C/D: Select answer');
-    console.log('  ✓ Enter: Submit answer');
-    console.log('  ✕ Escape: Close modals');
+    console.log('💡 Keyboard Shortcuts:');
+    console.log('  - A/B/C/D: Select answer');
+    console.log('  - Enter: Submit answer');
+    console.log('  - Escape: Close modals');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 }
 
@@ -1444,19 +1449,19 @@ function initApp() {
 // 16. DEVELOPER TOOLS
 // ============================================
 window.quizApp = {
-    version: '3.0.0',
+    version: '2.0.0',
     getUserData: () => userData,
     clearData: () => {
         userData = userDataManager.reset();
         HomeManager.updateStats();
         SidebarManager.updateUserInfo();
-        Utils.showNotification('🗑️ All data cleared', 'success');
+        Utils.showNotification('All data cleared', 'success');
     },
     addPoints: (points) => {
         userData.points += points;
         userDataManager.save(userData);
         HomeManager.updateStats();
-        Utils.showNotification(`💰 Added ${points} points!`, 'success');
+        Utils.showNotification(`Added ${points} points!`, 'success');
     },
     completeQuiz: () => {
         quizState.score = quizState.totalQuestions;
@@ -1467,17 +1472,6 @@ window.quizApp = {
         const dataStr = JSON.stringify(userData, null, 2);
         console.log(dataStr);
         return userData;
-    },
-    help: () => {
-        console.log('%c Quiz App Developer Tools ', 'background: #ff9a56; color: white; font-size: 16px; padding: 10px; border-radius: 5px; font-weight: bold;');
-        console.log('%c Available Commands: ', 'color: #4caf50; font-weight: bold; font-size: 14px;');
-        console.log('  quizApp.getUserData() - View user data');
-        console.log('  quizApp.clearData() - Clear all data');
-        console.log('  quizApp.addPoints(n) - Add points');
-        console.log('  quizApp.completeQuiz() - Auto-complete quiz');
-        console.log('  quizApp.getStats() - View category stats');
-        console.log('  quizApp.exportData() - Export user data');
-        console.log('  quizApp.version - Show version');
     }
 };
 
@@ -1490,8 +1484,4 @@ if (document.readyState === 'loading') {
     initApp();
 }
 
-console.log('%c 💻 Type "quizApp.help()" in console for developer tools ', 'background: #2196F3; color: white; font-size: 12px; padding: 6px 12px; border-radius: 5px; margin-top: 10px;');
-
-/* ============================================
-   END OF QUIZ APP - PROFESSIONAL EDITION v3.0
-   ============================================ */
+console.log('%c Type "quizApp" in console for developer tools ', 'background: #2196F3; color: white; font-size: 12px; padding: 5px 10px; border-radius: 5px;');
